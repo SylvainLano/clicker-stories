@@ -91,7 +91,10 @@ const NO_STORY = {
   update() {},
 }
 
-export function createGame({ stage, state, hud, effects, sounds, music, hooks, t, colors, achievements, storyBonuses }) {
+// Until main.js gives the tips: none.
+const NO_TIPS = { offer() {}, done() {}, update() {}, reset() {} }
+
+export function createGame({ stage, state, hud, effects, sounds, music, hooks, t, colors, achievements, storyBonuses, tips = NO_TIPS }) {
   let story = NO_STORY
   // Multipliers recomputed on every refresh from the error count, temporary buffs and story bonuses.
   const multipliers = { xp: 1, money: 1, criticalChance: 1, criticalPower: 1, standardHit: 100, fruitFactor: 1 }
@@ -159,6 +162,7 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
   function playerClick(source) {
     const now = performance.now()
     state.clickNumber++
+    tips.done('start')
     clickTimes.push(now)
     textClickTimes = lastSecond(textClickTimes)
     if (textClickTimes.length < MAX_TEXT_CLICKS) {
@@ -215,6 +219,7 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
 
     if (outcome.kind === 'miss') {
       kind = 'miss'
+      if (byPlayer) tips.offer('miss', hud.mainButton)
       sounds.play(SOUNDS.miss, 0.5)
     } else if (outcome.kind === 'hit') {
       if (byPlayer) {
@@ -282,6 +287,7 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
     // Counted here: the Java version counted every buff as a caught fruit, the black chest curse included.
     state.touchedFruits++
     state.caughtFruitKinds.add(fruit)
+    tips.done('fruit')
     // A coconut lifts the black chest curse first, if there is one.
     const curse = activeBuffs.findIndex((entry) => entry.name === 'CURSED')
     if (fruit === 'coconut' && curse >= 0) {
@@ -348,6 +354,8 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
     state.moneySpent += cost
     state[field] += upgradeSteps[field](state[field])
     state.upgradesBought[field]++
+    tips.done('upgrade')
+    if (key === 'storyBonus') tips.done('storyBonus')
     updateLabels()
     updateButtons()
     if (key === 'autoClick') restartAutoClick()
@@ -459,6 +467,25 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
     }
   }
 
+  // ---------- Tutorial tips ----------
+
+  // Tips shown when their mechanic shows up (the others are offered where they happen: misses, timed challenges...).
+  function checkTips() {
+    const usable = (button) => button.element.style.visibility !== 'hidden' && !button.element.disabled
+    const shown = (button) => button.element.style.visibility !== 'hidden'
+    if (state.clickNumber === 0) tips.offer('start', hud.mainButton)
+    const affordable = Object.keys(UPGRADES).find((key) => usable(hud.upgrades[key]))
+    if (affordable) tips.offer('upgrade', hud.upgrades[affordable].element)
+    if (state.autoClickingLevel >= 1) tips.offer('autoClick', hud.upgrades.autoClick.element)
+    if (usable(hud.upgrades.autoFire) || state.autoFireLevel >= 1) tips.offer('autoFire', hud.upgrades.autoFire.element)
+    if (effects.firstFruit) tips.offer('fruit', () => effects.firstFruit)
+    if (activeBuffs.length > 0) tips.offer('buffs', hud.buffs)
+    if (criticalTiers(criticalPoints(state, multipliers)).length > 1) tips.offer('criticalTiers', hud.upgrades.critical.element)
+    if (shown(hud.menuButtons.stories)) tips.offer('stories', hud.menuButtons.stories.element)
+    if (shown(hud.menuButtons.achievements)) tips.offer('achievements', hud.menuButtons.achievements.element)
+    if (usable(hud.upgrades.storyBonus)) tips.offer('storyBonus', hud.upgrades.storyBonus.element)
+  }
+
   // ---------- Saving ----------
 
   function save() {
@@ -486,12 +513,14 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
       updateButtons()
       checkAchievements()
       refreshBuffs()
+      checkTips()
       refreshTime = 0
     }
     // Play time only counts while numbers are flying, i.e. while actually playing.
     autoFire(dt)
     if (effects.hasDigits) state.inGameTime += dt
     effects.update(dt)
+    tips.update()
     story.update(dt)
     requestAnimationFrame(frame)
   }
@@ -527,6 +556,7 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
     fireClock = Math.min(fireClock + dt, Math.max(interval, 0.5))
     while (fireClock >= interval) {
       fireClock -= interval
+      if (state.autoFireLevel >= 1) tips.done('autoFire')
       clickAtButtonCenter('fire')
     }
   }
@@ -546,6 +576,7 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
       return activeBuffs
     },
     activeStoryBonuses,
+    tips,
     hasBuff: (name) => Boolean(buff(name)),
     buffValue: (name) => buffValue(activeBuffs, name),
     buy,

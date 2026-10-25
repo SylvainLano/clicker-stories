@@ -195,6 +195,7 @@ export function createStoryEngine({ game, content, hooks, t, backdrop }) {
       unlocked = 200
       event.counter = 0
     } else if (type === CONTENT.QUIZZ && event.counter === 0) {
+      game.tips.offer('quiz', textFlow)
       unlocked = 0
       block.text += '\n\n\n'
     }
@@ -238,11 +239,13 @@ export function createStoryEngine({ game, content, hooks, t, backdrop }) {
     if (game.hasBuff('seeds')) duration += SEEDS_EXTRA_TIME
     block.delay = duration
     block.text = block.text.replace('{reward}', formatNumber(event.reward)).replace('{number}', block.number)
+    game.tips.offer('timedChallenge', lcdTimer)
     unlocked = 200
     event.counter = 0
   }
 
   function giveTimedReward(block) {
+    game.tips.done('timedChallenge')
     const label = (key) => t('caracteristics', key)
     let display = ''
     switch (block.trigger) {
@@ -287,6 +290,7 @@ export function createStoryEngine({ game, content, hooks, t, backdrop }) {
   }
 
   function loseTimedChallenge(block) {
+    game.tips.done('timedChallenge')
     block.text = t('events', 'lose')
     unlocked = block.text.length
     block.weight = unlocked + 150
@@ -371,11 +375,14 @@ export function createStoryEngine({ game, content, hooks, t, backdrop }) {
       })
       return chest
     })
-    textFlow.append(element('div', 'chests', '', ...event.chests))
+    const chests = element('div', 'chests', '', ...event.chests)
+    textFlow.append(chests)
+    game.tips.offer('chests', chests)
     event.countdown++
   }
 
   function openChest(block, fruitFactor) {
+    game.tips.done('chests')
     const chest = event.chests[event.counter - 1]
     const gift = chest.dataset.gift
     typed = 0
@@ -480,6 +487,7 @@ export function createStoryEngine({ game, content, hooks, t, backdrop }) {
   }
 
   function checkAnswer(block) {
+    game.tips.done('quiz')
     typed = 0
     progressCircle.hidden = true
     text = ''

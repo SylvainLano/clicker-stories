@@ -25,6 +25,22 @@
     "autoDelay": "Cadence ",
     "quitGame": "Quitter"
   },
+  "tips": {
+    "start": "Cliquez ici, ou appuyez sur Espace, pour faire avancer l'histoire.",
+    "miss": "Raté ! Plus la puissance est haute, plus on rate ; la concentration compense.",
+    "upgrade": "Une amélioration ! Chaque achat coûte 1,8 fois plus que le précédent.",
+    "autoClick": "L'auto-clic gagne pour vous, même quand vous ne jouez pas, mais ne fait pas avancer l'histoire.",
+    "autoFire": "Maintenez Espace pour tirer en rafale.",
+    "fruit": "Passez la souris sur le fruit pour l'attraper !",
+    "buffs": "Vos bonus et leur temps restant. Reprendre le même fruit le prolonge et le renforce.",
+    "criticalTiers": "Au-delà de 50 %, les critiques doubles s'ouvrent, puis les triples…",
+    "timedChallenge": "Réussissez le défi avant la fin du temps pour gagner la récompense.",
+    "chests": "Choisissez un coffre. Tous ne sont pas de bonnes surprises…",
+    "quiz": "Terminez les quiz d'une histoire pour débloquer un bonus d'histoire.",
+    "stories": "Toutes vos histoires sont rangées ici.",
+    "achievements": "Vos succès sont ici. Certains sont cachés…",
+    "storyBonus": "Choisissez ici quels bonus d'histoire activer."
+  },
   "buffs": {
     "expGain": "Exp x",
     "moneyGain": "Argent x",
@@ -54,7 +70,8 @@
   },
   "menus": {
     "options": "Options",
-    "language": "Langues : "
+    "language": "Langues : ",
+    "tipsAgain": "Revoir les conseils"
   },
   "achievements": {
     "newStory": "Vous avez commencé une nouvelle histoire !"

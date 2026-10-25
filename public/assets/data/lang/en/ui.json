@@ -27,6 +27,22 @@
     "autoDelay": "AutoDelay ",
     "quitGame": "Quit Game"
   },
+  "tips": {
+    "start": "Click here, or press Space, to move the story forward.",
+    "miss": "Missed! The more power you have, the more you miss; focus makes up for it.",
+    "upgrade": "An upgrade! Each purchase costs 1.8 times the previous one.",
+    "autoClick": "Auto-click earns for you, even when you are not playing, but it does not move the story forward.",
+    "autoFire": "Hold Space to fire in bursts.",
+    "fruit": "Move the mouse over the fruit to catch it!",
+    "buffs": "Your bonuses and their time left. Catching the same fruit again extends and strengthens it.",
+    "criticalTiers": "Past 50%, double critical hits open up, then triple ones…",
+    "timedChallenge": "Beat the challenge before the time runs out to win the reward.",
+    "chests": "Pick a chest. Not all of them are good surprises…",
+    "quiz": "Finish a story's quizzes to unlock a story bonus.",
+    "stories": "All your stories are kept here.",
+    "achievements": "Your achievements are here. Some of them are hidden…",
+    "storyBonus": "Choose here which story bonuses to activate."
+  },
   "buffs": {
     "expGain": "Exp x",
     "moneyGain": "Money x",
@@ -64,7 +80,8 @@
   },
   "menus": {
     "options": "Options",
-    "language": "Languages: "
+    "language": "Languages: ",
+    "tipsAgain": "See the tips again"
   },
   "achievements": {
     "newStory": "You started a new story!",

@@ -14,6 +14,12 @@ const SET_FIELDS = [
   'unlockedAchievementIds',
   'activatedStoryBonus',
   'caughtFruitKinds',
+  'seenTips',
+]
+// Tutorial tips (src/ui/tips.js), in the order they usually show.
+export const TIP_IDS = [
+  ...['start', 'miss', 'upgrade', 'autoClick', 'autoFire', 'fruit', 'buffs', 'criticalTiers'],
+  ...['timedChallenge', 'chests', 'quiz', 'stories', 'achievements', 'storyBonus'],
 ]
 
 export function createState() {
@@ -96,6 +102,8 @@ export function loadState() {
   // Upgrades added since the save was made start with no purchase.
   const purchases = 'upgradesBought' in data ? data.upgradesBought : estimatePurchases(state)
   state.upgradesBought = { ...createState().upgradesBought, ...purchases }
+  // Saves from before the tips (version 0.4): their players already know the game.
+  if (!('seenTips' in data)) state.seenTips = new Set(TIP_IDS)
   return state
 }
 

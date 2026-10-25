@@ -106,6 +106,10 @@ export function createEffects(layer, { onFruitCaught, catchesByItself = () => fa
     addDigit,
     addParticle,
     addFruit,
+    // The first fruit still flying (a tutorial tip points at it), or null.
+    get firstFruit() {
+      return fruits[0]?.node ?? null
+    },
     get hasDigits() {
       return digits.length > 0
     },

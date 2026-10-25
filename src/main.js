@@ -19,6 +19,7 @@ import { createBackdrop } from './ui/backdrop.js'
 import { createEffects } from './ui/effects.js'
 import { createHud } from './ui/hud.js'
 import { createMenuPane } from './ui/menus.js'
+import { createTips } from './ui/tips.js'
 
 const TITLE_COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
 const MENU_SOUNDS = { open: '/sound/effects/Menu_In.wav', close: '/sound/effects/Menu_Out.wav' }
@@ -84,9 +85,15 @@ async function startGame() {
   const hud = createHud(stage, {
     click: (event) => game.onMainButtonClick(event),
     upgrade: (key) => game.buy(key),
-    openStories: () => openMenu(storiesMenu, fillStories),
+    openStories: () => {
+      tips.done('stories')
+      openMenu(storiesMenu, fillStories)
+    },
     openStoryBonus: () => openMenu(storyBonusMenu, fillStoryBonuses),
-    openAchievements: () => openMenu(achievementsMenu, fillAchievements),
+    openAchievements: () => {
+      tips.done('achievements')
+      openMenu(achievementsMenu, fillAchievements)
+    },
     openOptions: () => openMenu(optionsMenu, fillOptions),
     toggleSfx() {
       sounds.enabled = !sounds.enabled
@@ -103,7 +110,8 @@ async function startGame() {
     onFruitCaught: (...args) => game.onFruitCaught(...args),
     catchesByItself: () => game.hasBuff('magnet'),
   })
-  game = createGame({ stage, state, hud, effects, sounds, music, hooks, t, colors, achievements, storyBonuses })
+  const tips = createTips(stage, { state, text: (id) => t('tips', id) })
+  game = createGame({ stage, state, hud, effects, sounds, music, hooks, t, colors, achievements, storyBonuses, tips })
   const story = createStoryEngine({ game, content, hooks, t, backdrop })
   game.setStory(story)
 
@@ -190,7 +198,13 @@ async function startGame() {
       button.addEventListener('click', () => changeLanguage(language))
       languageRow.append(button)
     }
-    optionsMenu.box.replaceChildren(element('div', 'options-row', '', element('span', '', t('menus', 'options'))), languageRow)
+    const tipsButton = element('button', 'squared-button', t('menus', 'tipsAgain'))
+    tipsButton.addEventListener('click', () => {
+      tips.reset()
+      tipsButton.disabled = true
+    })
+    const tipsRow = element('div', 'options-row', '', tipsButton)
+    optionsMenu.box.replaceChildren(element('div', 'options-row', '', element('span', '', t('menus', 'options'))), languageRow, tipsRow)
   }
 
   async function changeLanguage(language) {
