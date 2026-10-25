@@ -18,6 +18,8 @@
     "main": "Cliquez ici !",
     "cost": "Prix ",
     "unlockAutoclick": "Obtenir Auto",
+    "unlockAutoFire": "Obtenir Tir auto",
+    "autoFire": "Tir auto",
     "unlockCritical": "Obtenir Crits",
     "unlockFruit": "Obtenir Fruits",
     "autoDelay": "Cadence ",

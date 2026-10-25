@@ -19,6 +19,8 @@
     "main": "Click here!",
     "cost": "Cost ",
     "unlockAutoclick": "Unlock Auto",
+    "unlockAutoFire": "Unlock Auto-fire",
+    "autoFire": "Auto-fire",
     "unlockCritical": "Unlock Crits",
     "unlockFruit": "Unlock Fruits",
     "unlockStoryBonus": "Unlock Bonuses",

@@ -3,6 +3,7 @@ import { shake } from '../ui/effects.js'
 import { showToast } from '../ui/toast.js'
 import {
   autoClickingDelay,
+  autoFireRate,
   experienceForLevel,
   formatNumber,
   levelForExperience,
@@ -41,7 +42,7 @@ const BUFF_LEVEL_UP_THRESHOLD = 300
 const BUFF_LEVEL_UP_CUT = 240
 
 const REFRESH_INTERVAL = 0.5 // seconds between two refreshes of buttons, buffs and achievements
-const SPACE_REPEAT_DELAY = 2000 // holding space clicks once every 2 seconds
+const MAX_TEXT_CLICKS = 8 // clicks per second that advance the story text, at most (auto-fire goes far beyond)
 const MAX_CLICK_PARTICLES = 5 // above this many clicks per second, clicks stop throwing particles
 
 // Achievement id -> unlock condition.
@@ -81,7 +82,10 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
   let costs = {}
   let autoClickTimer = null
   let refreshTime = 0
-  let lastSpacePress = 0
+  let manualClickTimes = []
+  let textClickTimes = []
+  let spaceHeld = false
+  let fireClock = 0
   let gunshots = []
 
   // ---------- Helpers ----------
@@ -114,10 +118,33 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
     }
   }
 
+  // Clicks of the player (mouse, space bar and auto-fire) in the last second.
   function countRecentClicks() {
-    const oneSecondAgo = performance.now() - 1000
-    clickTimes = clickTimes.filter((time) => time >= oneSecondAgo)
+    clickTimes = lastSecond(clickTimes)
     return clickTimes.length
+  }
+
+  function lastSecond(times) {
+    const oneSecondAgo = performance.now() - 1000
+    return times.filter((time) => time >= oneSecondAgo)
+  }
+
+  // A click of the player: it advances the story text, up to MAX_TEXT_CLICKS per second. Only real clicks
+  // (not auto-fire) count for the clicks per second record.
+  function playerClick(source) {
+    const now = performance.now()
+    state.clickNumber++
+    clickTimes.push(now)
+    textClickTimes = lastSecond(textClickTimes)
+    if (textClickTimes.length < MAX_TEXT_CLICKS) {
+      textClickTimes.push(now)
+      story.animate()
+    }
+    if (source === 'manual') {
+      manualClickTimes = lastSecond(manualClickTimes)
+      state.maxClicksSecond = Math.max(state.maxClicksSecond, manualClickTimes.length)
+      manualClickTimes.push(now)
+    }
   }
 
   // ---------- Labels ----------
@@ -147,37 +174,33 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
 
   // ---------- Clicks ----------
 
-  // source: 'manual' (mouse or space bar) or 'auto' (auto-click); (x, y): where the numbers fly from.
+  // source: 'manual' (mouse or space bar), 'fire' (space bar held, auto-fire) or 'auto' (auto-click).
+  // Auto-fire clicks are the player's clicks; auto-clicks are not, and never advance the story text.
+  // (x, y): where the numbers fly from.
   function hit(source, x, y) {
     const stats = clickStats(state, multipliers, source)
     const hitRoll = story.beforeHit(Math.random() * 100, source)
     const outcome = clickOutcome(stats, hitRoll, Math.random() * 100, story.allowsCritical())
     const { increase, coins, experience } = clickGains(state, stats, outcome)
-    const recentClicks = countRecentClicks()
+    const byPlayer = source !== 'auto'
     let kind
 
     if (outcome.kind === 'miss') {
       kind = 'miss'
       sounds.play(SOUNDS.miss, 0.5)
     } else if (outcome.kind === 'hit') {
-      if (source === 'manual') {
+      if (byPlayer) {
         kind = 'score-digit'
-        state.clickNumber++
-        story.animate()
-        clickTimes.push(performance.now())
-        state.maxClicksSecond = Math.max(state.maxClicksSecond, recentClicks)
+        playerClick(source)
       } else {
         kind = 'artificial-digit'
         state.autoClickNumber++
       }
     } else {
-      if (source === 'manual') {
+      if (byPlayer) {
         kind = 'critical-digit'
-        state.clickNumber++
         state.criticalHits++
-        story.animate()
-        clickTimes.push(performance.now())
-        state.maxClicksSecond = Math.max(state.maxClicksSecond, recentClicks)
+        playerClick(source)
         // The gunshot and the shake fade away once critical hits become common.
         const volume = Math.max(10 - state.critical, 0)
         if (volume !== 0) {
@@ -314,6 +337,7 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
     fruit: 'fruitFactor',
     storyBonus: 'storyBonus',
     autoClick: 'autoClickingLevel',
+    autoFire: 'autoFireLevel',
   }
 
   function buy(key) {
@@ -359,6 +383,8 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
         return [value === 0 ? t('buttons', 'unlockStoryBonus') : `${value} ${t('caracteristics', 'storyBonus')}`, cost]
       case 'autoClick':
         return [value === 0 ? t('buttons', 'unlockAutoclick') : t('buttons', 'autoDelay') + Number(autoClickingDelay(value).toFixed(2)), cost]
+      case 'autoFire':
+        return [value === 0 ? t('buttons', 'unlockAutoFire') : `${t('buttons', 'autoFire')} ${autoFireRate(value)}/s`, cost]
     }
   }
 
@@ -463,6 +489,7 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
       refreshTime = 0
     }
     // Play time only counts while numbers are flying, i.e. while actually playing.
+    autoFire(dt)
     if (effects.hasDigits) state.inGameTime += dt
     effects.update(dt)
     story.update(dt)
@@ -471,21 +498,37 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
 
   // ---------- Input ----------
 
+  // Pressing the space bar clicks once; holding it keeps clicking at the auto-fire rate (see frame).
   function onKeyDown(event) {
     if (event.key === ' ') {
       event.preventDefault() // no page scroll, no click on the focused button
-      if (performance.now() - lastSpacePress < SPACE_REPEAT_DELAY) return
-      lastSpacePress = performance.now()
+      if (event.repeat || spaceHeld) return
+      spaceHeld = true
+      fireClock = 0
       hud.mainButton.classList.add('pressed')
       clickAtButtonCenter('manual')
     }
     hooks.emit('keydown', event.key)
   }
 
-  function onKeyUp(event) {
-    if (event.key !== ' ') return
-    lastSpacePress = 0
+  function releaseSpace() {
+    spaceHeld = false
     hud.mainButton.classList.remove('pressed')
+  }
+
+  function onKeyUp(event) {
+    if (event.key === ' ') releaseSpace()
+  }
+
+  function autoFire(dt) {
+    if (!spaceHeld) return
+    const interval = 1 / autoFireRate(state.autoFireLevel)
+    // After a long frame, at most half a second of shots at once.
+    fireClock = Math.min(fireClock + dt, Math.max(interval, 0.5))
+    while (fireClock >= interval) {
+      fireClock -= interval
+      clickAtButtonCenter('fire')
+    }
   }
 
   let buttonSkin = ''
@@ -552,6 +595,8 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
       if (state.storyBonus > 0) hud.menuButtons.storyBonus.show()
       addEventListener('keydown', onKeyDown)
       addEventListener('keyup', onKeyUp)
+      // A key released while the window had lost the focus would keep auto-fire running.
+      addEventListener('blur', releaseSpace)
       // Saves when the page is closed or hidden (closing the window saved in the Java version).
       addEventListener('pagehide', save)
       document.addEventListener('visibilitychange', () => document.visibilityState === 'hidden' && save())

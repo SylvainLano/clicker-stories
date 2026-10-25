@@ -10,7 +10,7 @@
 //
 // Not modelled yet: stories and events (timed challenges, chests, quizzes), fruits and their buffs, story bonuses.
 // Their rewards come on top of what is shown here.
-import { autoClickingDelay, formatNumber, levelForExperience, upgradeCosts, upgradeSteps } from '../src/game/formulas.js'
+import { autoClickingDelay, autoFireRate, formatNumber, levelForExperience, upgradeCosts, upgradeSteps } from '../src/game/formulas.js'
 import { clickGains, clickOutcome, clickStats, criticalPoints, criticalTiers } from '../src/game/rules.js'
 import { createState } from '../src/game/state.js'
 
@@ -27,6 +27,7 @@ const UPGRADES = {
   fruit: 'fruitFactor',
   storyBonus: 'storyBonus',
   autoClick: 'autoClickingLevel',
+  autoFire: 'autoFireLevel',
 }
 const NO_BUFFS = { xp: 1, money: 1, criticalChance: 1, criticalPower: 1, standardHit: 100, fruitFactor: 1 }
 
@@ -97,7 +98,9 @@ function simulate(options) {
   let shoppingClock = 0
 
   for (let time = 0; time < options.hours * 3600; time += STEP) {
-    manualClock += options.cps * STEP
+    // The player holds the space bar while clicking the mouse, once auto-fire is worth it.
+    const fireRate = state.autoFireLevel >= 1 ? autoFireRate(state.autoFireLevel) : 0
+    manualClock += (options.cps + fireRate) * STEP
     while (manualClock >= 1) {
       manualClock -= 1
       click(state, 'manual', random)
@@ -142,6 +145,7 @@ function main() {
       'money x': s.moneyGain,
       'xp x': s.experienceGain,
       auto: s.autoClickingLevel,
+      fire: s.autoFireLevel ? `${autoFireRate(s.autoFireLevel).toFixed(1)}/s` : '-',
       spent: short(s.moneySpent),
       score: formatNumber(s.score),
     })),

@@ -34,7 +34,7 @@ function createIconButton(style, onClick) {
 // Builds the game screen. `actions` holds the click handlers, keyed like the buttons.
 export function createHud(stage, actions) {
   const upgrades = Object.fromEntries(
-    ['power', 'critical', 'criticalPower', 'focus', 'autoClick', 'moneyGain', 'experienceGain', 'fruit', 'storyBonus'].map(
+    ['power', 'critical', 'criticalPower', 'focus', 'autoClick', 'autoFire', 'moneyGain', 'experienceGain', 'fruit', 'storyBonus'].map(
       (key) => [key, createUpgradeButton(() => actions.upgrade(key))],
     ),
   )
@@ -71,7 +71,7 @@ export function createHud(stage, actions) {
       'hud',
       '',
       element('div', 'upgrades upgrades-left', '', ...['storyBonus', 'fruit', 'experienceGain', 'moneyGain', 'autoClick'].map((key) => upgrades[key].element)),
-      element('div', 'upgrades upgrades-right', '', ...['focus', 'criticalPower', 'critical', 'power'].map((key) => upgrades[key].element)),
+      element('div', 'upgrades upgrades-right', '', ...['autoFire', 'focus', 'criticalPower', 'critical', 'power'].map((key) => upgrades[key].element)),
       element('div', 'icon-buttons icon-buttons-left', '', ...Object.values(menuButtons).map((button) => button.element)),
       element('div', 'icon-buttons icon-buttons-right', '', ...Object.values(soundButtons).map((button) => button.element)),
       buffs,

@@ -32,6 +32,7 @@ export function createState() {
     fruitFactor: 0,
     storyBonus: 0,
     autoClickingLevel: 0,
+    autoFireLevel: 0,
     errorNumber: 0,
     // Purchases of each upgrade (by state field), which set its next price.
     upgradesBought: Object.fromEntries(Object.keys(STARTING_VALUES).map((field) => [field, 0])),
@@ -89,7 +90,9 @@ export function loadState() {
     if (!(key in data)) continue
     state[key] = SET_FIELDS.includes(key) ? new Set(data[key]) : data[key]
   }
-  if (!('upgradesBought' in data)) state.upgradesBought = estimatePurchases(state)
+  // Upgrades added since the save was made start with no purchase.
+  const purchases = 'upgradesBought' in data ? data.upgradesBought : estimatePurchases(state)
+  state.upgradesBought = { ...createState().upgradesBought, ...purchases }
   return state
 }
 

@@ -18,6 +18,7 @@ export const STARTING_VALUES = {
   fruitFactor: 0,
   storyBonus: 0,
   autoClickingLevel: 0,
+  autoFireLevel: 0,
 }
 const FIRST_PRICES = {
   power: 100,
@@ -29,10 +30,12 @@ const FIRST_PRICES = {
   fruitFactor: 15000,
   storyBonus: 100000,
   autoClickingLevel: 200,
+  autoFireLevel: 1000,
 }
 // Each purchase of an upgrade costs this many times the previous one: progress slows down to a wall
 // after about 2 hours, which pushes the player to prestige (checked with scripts/simulate.mjs).
 const COST_GROWTH = 1.8
+
 
 // Cost of the next purchase of each upgrade (by state field), after the discount (1 = full price).
 export function upgradeCosts(state, discount) {
@@ -55,6 +58,7 @@ export const upgradeSteps = {
   fruitFactor: () => 1,
   storyBonus: () => 1,
   autoClickingLevel: () => 1,
+  autoFireLevel: () => 1,
 }
 
 export function experienceForLevel(level) {
@@ -69,6 +73,13 @@ export function levelForExperience(experience) {
 // Seconds between two automatic clicks: from 3s, decaying exponentially, never under 0.1s.
 export function autoClickingDelay(autoClickingLevel) {
   return Math.max(3 * Math.exp(-0.2 * (autoClickingLevel - 1)), 0.1)
+}
+
+// Clicks per second while the space bar is held: one every 2 seconds without the upgrade, then 2 per second and
+// one more per level, with no limit (holding the space bar is meant to reach inhuman rates). It grows linearly:
+// growing by a factor per level, it outran the x1.8 costs and broke the 2-hour wall (scripts/simulate.mjs).
+export function autoFireRate(autoFireLevel) {
+  return autoFireLevel === 0 ? 0.5 : autoFireLevel + 1
 }
 
 // 4999, then 5.0K... 4999.9K, then 5.0M...: each unit takes over at 5 of it. Beyond the last unit,
