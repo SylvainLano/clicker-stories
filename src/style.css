@@ -1,5 +1,6 @@
 :root {
   --page-background: #000;
+  --stage-ring: #0d0a14;
   --title-outline: #fff;
   --hint-color: #fff;
   color-scheme: dark;
@@ -10,13 +11,28 @@ body {
   background: var(--page-background);
 }
 
+/* Around the stage: its current background, blurred and darkened (see src/ui/backdrop.js). */
+#backdrop {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.backdrop-layer {
+  position: absolute;
+  inset: -60px;
+  background: center / cover no-repeat;
+  filter: blur(40px) brightness(0.35) saturate(1.2);
+}
+
 /* Centers the stage; a window smaller than the stage scrolls instead of shrinking the game. */
 #viewport {
+  position: relative;
   display: flex;
   min-height: 100vh;
 }
 
-/* The game keeps its original fixed 800x600 size. */
+/* The game keeps its original fixed 800x600 size, edged with a thin line in the level's color. */
 #stage {
   position: relative;
   flex: none;
@@ -26,6 +42,12 @@ body {
   overflow: hidden;
   background: var(--page-background) center / cover no-repeat;
   user-select: none;
+  outline: 2px solid color-mix(in srgb, var(--accent) 80%, white);
+  outline-offset: 4px;
+  box-shadow:
+    0 0 0 6px var(--stage-ring),
+    0 0 24px 6px color-mix(in srgb, var(--accent) 35%, transparent);
+  transition: outline-color 1s, box-shadow 1s;
 }
 
 .start-screen {
@@ -54,6 +76,17 @@ body {
   font-size: 20px;
   color: var(--hint-color);
   animation: blink 1.5s ease-in-out infinite;
+}
+
+.start-version {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  margin: 0;
+  font-family: 'AnotherTypeWriter', monospace;
+  font-size: 12px;
+  color: var(--hint-color);
+  opacity: 0.6;
 }
 
 @keyframes blink {

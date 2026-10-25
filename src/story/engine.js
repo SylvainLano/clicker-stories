@@ -44,7 +44,7 @@ function pickWeightedIndex(count) {
 
 // The story area: types the current block letter by letter as the player clicks, then fills a progress
 // circle, then moves on to the next block or to other content (jokes, facts, events, quizzes...).
-export function createStoryEngine({ game, content, hooks, t }) {
+export function createStoryEngine({ game, content, hooks, t, backdrop }) {
   const { state, hud, sounds, music, stage } = game
   const keyboardSounds = listAssets('sound/effects/typewriter/')
 
@@ -110,6 +110,7 @@ export function createStoryEngine({ game, content, hooks, t }) {
   function changeBackground(path) {
     if (path === backgroundPath) return
     backgroundPath = path
+    backdrop?.show(resolveUrl(path))
     const layer = element('div', 'background-layer')
     layer.style.backgroundImage = `url("${resolveUrl(path)}")`
     layer.style.opacity = 0

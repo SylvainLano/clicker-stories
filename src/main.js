@@ -2,6 +2,7 @@ import './style.css'
 import './ui/game.css'
 import './story/story.css'
 import installExtensions from '@extensions'
+import { version } from '../package.json'
 import { assetUrl, listAssets, loadManifest, manifest, resolveUrl } from './assets.js'
 import { createMusicPlayer, createSoundPlayer } from './audio.js'
 import { LANGUAGES, loadData, loadLocalized, loadTranslator } from './data.js'
@@ -10,10 +11,11 @@ import { createGame } from './game/game.js'
 import { createState, loadState } from './game/state.js'
 import { createHooks } from './hooks.js'
 import { defineImageVariables } from './images.js'
-import { AMBIENT_MUSIC, loadContent } from './story/content.js'
+import { AMBIENT_MUSIC, NIGHT_SKY, loadContent } from './story/content.js'
 import { createStoryEngine } from './story/engine.js'
 import { fillStoriesMenu, fillStoryBonusMenu, showBlock } from './story/menus.js'
 import { element, fitPixelImage } from './ui/dom.js'
+import { createBackdrop } from './ui/backdrop.js'
 import { createEffects } from './ui/effects.js'
 import { createHud } from './ui/hud.js'
 import { createMenuPane } from './ui/menus.js'
@@ -22,14 +24,16 @@ const TITLE_COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'vio
 const MENU_SOUNDS = { open: '/sound/effects/Menu_In.wav', close: '/sound/effects/Menu_Out.wav' }
 
 const stage = document.getElementById('stage')
+const backdrop = createBackdrop(document.getElementById('backdrop'))
 const hooks = createHooks()
 
 // Browsers only allow sound after a user gesture, so the game starts on a click.
 function showStartScreen(onStart) {
   const screen = element('div', 'start-screen')
   screen.style.backgroundImage = `url("${assetUrl('/images/backgrounds/loader.webp')}")`
+  backdrop.show(assetUrl('/images/backgrounds/loader.webp'))
   const title = element('h1', 'start-title', 'Clicker Stories')
-  screen.append(title, element('p', 'start-hint', 'Click to start'))
+  screen.append(title, element('p', 'start-hint', 'Click to start'), element('p', 'start-version', `v${version}`))
   stage.append(screen)
 
   let colorIndex = 0
@@ -73,7 +77,8 @@ async function startGame() {
   const menuMusic = createMusicPlayer({ isMuted: () => !musicOn })
   const setCredits = (text) => game.setCredits(text)
 
-  stage.style.backgroundImage = `url("${assetUrl('/images/backgrounds/night_sky.webp')}")`
+  stage.style.backgroundImage = `url("${assetUrl(NIGHT_SKY)}")`
+  backdrop.show(assetUrl(NIGHT_SKY))
 
   let game
   const hud = createHud(stage, {
@@ -96,7 +101,7 @@ async function startGame() {
   })
   const effects = createEffects(hud.effects, { onFruitCaught: (...args) => game.onFruitCaught(...args) })
   game = createGame({ stage, state, hud, effects, sounds, music, hooks, t, colors, achievements, storyBonuses })
-  const story = createStoryEngine({ game, content, hooks, t })
+  const story = createStoryEngine({ game, content, hooks, t, backdrop })
   game.setStory(story)
 
   // ---------- Menus ----------
