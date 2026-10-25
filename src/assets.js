@@ -1,5 +1,7 @@
 // Asset paths look like "/images/backgrounds/night_sky.webp", relative to public/assets.
-const ASSETS_ROOT = `${import.meta.env.BASE_URL}assets`
+// Absolute, because some of these URLs end up in CSS variables: a relative url() there resolves against the
+// stylesheet that uses it (bundle/), not against the page.
+const ASSETS_ROOT = new URL(`${import.meta.env.BASE_URL}assets`, document.baseURI).href
 
 let paths = []
 
