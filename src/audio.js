@@ -47,7 +47,7 @@ export function createSoundPlayer() {
   }
 }
 
-// Looping background music (files in /sound/background/), cross-fading between tracks.
+// Looping background music (files in /sound/background/, or blob:/data: URLs), cross-fading between tracks.
 // When music is muted, tracks keep playing silently, as in the Java version.
 export function createMusicPlayer({ isMuted }) {
   let current = null
@@ -67,7 +67,7 @@ export function createMusicPlayer({ isMuted }) {
   }
 
   function createTrack(file, volume) {
-    const element = new Audio(assetUrl(`/sound/background/${file}`))
+    const element = new Audio(/^(blob|data):/.test(file) ? file : assetUrl(`/sound/background/${file}`))
     element.loop = true
     element.volume = 0
     element.play().catch(() => {})

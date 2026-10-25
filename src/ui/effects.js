@@ -2,7 +2,7 @@ import { assetUrl } from '../assets.js'
 import { element } from './dom.js'
 
 const GRAVITY = 100
-const FRUIT_SIZE = 24
+const FRUIT_SIZE = 32
 // A fruit can only be caught once it has flown for a moment, so it isn't caught by the click that launched it.
 const FRUIT_CATCH_DELAY = 0.5
 

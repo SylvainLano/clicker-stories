@@ -1,7 +1,8 @@
 import './style.css'
 import './ui/game.css'
+import './story/story.css'
 import installExtensions from '@extensions'
-import { assetUrl, listAssets, loadManifest, manifest } from './assets.js'
+import { assetUrl, listAssets, loadManifest, manifest, resolveUrl } from './assets.js'
 import { createMusicPlayer, createSoundPlayer } from './audio.js'
 import { LANGUAGES, loadData, loadLocalized, loadTranslator } from './data.js'
 import { loadFonts } from './fonts.js'
@@ -9,13 +10,15 @@ import { createGame } from './game/game.js'
 import { createState, loadState } from './game/state.js'
 import { createHooks } from './hooks.js'
 import { defineImageVariables } from './images.js'
-import { element } from './ui/dom.js'
+import { AMBIENT_MUSIC, loadContent } from './story/content.js'
+import { createStoryEngine } from './story/engine.js'
+import { fillStoriesMenu, fillStoryBonusMenu, showBlock } from './story/menus.js'
+import { element, fitPixelImage } from './ui/dom.js'
 import { createEffects } from './ui/effects.js'
 import { createHud } from './ui/hud.js'
 import { createMenuPane } from './ui/menus.js'
 
 const TITLE_COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
-const AMBIENT_MUSIC = { file: 'Dar Golan Free Night Nature Soundscape.mp3', credits: 'Dar Golan - Free Night Nature Soundscape' }
 const MENU_SOUNDS = { open: '/sound/effects/Menu_In.wav', close: '/sound/effects/Menu_Out.wav' }
 
 const stage = document.getElementById('stage')
@@ -53,10 +56,11 @@ async function startGame() {
   let translate = await loadTranslator(state.lang)
   const t = (category, key) => translate(category, key)
 
-  const [{ colors }, achievements, storyBonuses] = await Promise.all([
+  const [{ colors }, achievements, storyBonuses, content] = await Promise.all([
     loadData('progressbar_colors.json'),
     loadLocalized(state.lang, 'achievements.json'),
     loadLocalized(state.lang, 'storyBonuses.json'),
+    loadContent(state.lang),
   ])
   for (const bonus of storyBonuses) {
     bonus.unlocked = state.finishedQuizzIds.has(bonus.id)
@@ -67,7 +71,7 @@ async function startGame() {
   const sounds = createSoundPlayer()
   const music = createMusicPlayer({ isMuted: () => !musicOn })
   const menuMusic = createMusicPlayer({ isMuted: () => !musicOn })
-  const setCredits = (text) => hud.setCredits(hooks.transform('creditsText', text))
+  const setCredits = (text) => game.setCredits(text)
 
   stage.style.backgroundImage = `url("${assetUrl('/images/backgrounds/night_sky.webp')}")`
 
@@ -75,8 +79,8 @@ async function startGame() {
   const hud = createHud(stage, {
     click: (event) => game.onMainButtonClick(event),
     upgrade: (key) => game.buy(key),
-    openStories: () => {},
-    openStoryBonus: () => {},
+    openStories: () => openMenu(storiesMenu, fillStories),
+    openStoryBonus: () => openMenu(storyBonusMenu, fillStoryBonuses),
     openAchievements: () => openMenu(achievementsMenu, fillAchievements),
     openOptions: () => openMenu(optionsMenu, fillOptions),
     toggleSfx() {
@@ -92,6 +96,8 @@ async function startGame() {
   })
   const effects = createEffects(hud.effects, { onFruitCaught: (...args) => game.onFruitCaught(...args) })
   game = createGame({ stage, state, hud, effects, sounds, music, hooks, t, colors, achievements, storyBonuses })
+  const story = createStoryEngine({ game, content, hooks, t })
+  game.setStory(story)
 
   // ---------- Menus ----------
 
@@ -113,7 +119,27 @@ async function startGame() {
     sounds.play(MENU_SOUNDS.open, 0.5)
   }
 
+  const storiesMenu = createMenuPane(stage, { panelClass: 'planks stories-panel', onClose: closeMenu })
+  const storyBonusMenu = createMenuPane(stage, { panelClass: 'planks-white', onClose: closeMenu })
   const achievementsMenu = createMenuPane(stage, { panelClass: 'planks-white', onClose: closeMenu })
+
+  function fillStories() {
+    fillStoriesMenu(storiesMenu.box, {
+      state,
+      content,
+      hooks,
+      // Rereading a block brings back its picture and its music.
+      openBlock({ backgroundPath, text, musicPath, musicCredits, musicVolume }) {
+        showBlock(stage, { background: resolveUrl(backgroundPath), text })
+        menuMusic.change(musicPath, musicVolume > 0 ? musicVolume : 0.5, 1)
+        setCredits(musicCredits ?? '')
+      },
+    })
+  }
+
+  function fillStoryBonuses() {
+    fillStoryBonusMenu(storyBonusMenu.box, { state, storyBonuses, sounds, onChange: fillStoryBonuses })
+  }
   const optionsMenu = createMenuPane(stage, { panelClass: 'planks-white', onClose: closeMenu })
 
   function fillAchievements() {
@@ -124,7 +150,7 @@ async function startGame() {
     const grid = element('div', 'achievement-grid')
     for (const achievement of shown) {
       const unlocked = state.unlockedAchievementIds.has(achievement.id)
-      const icon = element('img')
+      const icon = fitPixelImage(element('img'), 42)
       icon.src = assetUrl(unlocked ? achievement.image : '/images/buttons/achievement-icon-locked.webp')
       icon.alt = ''
       grid.append(
@@ -171,20 +197,29 @@ async function startGame() {
 
   // ---------- Start ----------
 
+  // Extensions get the game first, so that they see everything that follows.
+  hooks.emit('start', { state, game, story, hud, effects, sounds, music, stage, t })
   hud.mainButton.textContent = t('buttons', 'main')
   music.start(AMBIENT_MUSIC.file, 1)
   setCredits(AMBIENT_MUSIC.credits)
   if (savedState) hud.showSaveStatus(t('statusLabel', 'loaded'))
   game.start({ gunshotSounds: listAssets('sound/effects/gunshot/') })
-  hooks.emit('start', { state, game, hud, effects, sounds, music, stage, t })
+  const hasStories = state.startedStoryIds.size > 0 || state.finishedStoryIds.size > 0
+  if (hasStories) hud.menuButtons.stories.show()
+  story.start({ returning: hasStories })
   // Development only: inspect or tweak the game from the browser console.
-  if (import.meta.env.DEV) window.clickerStories = { state, game, effects }
+  if (import.meta.env.DEV) window.clickerStories = { state, game, story, effects }
 }
 
 async function main() {
   await Promise.all([loadManifest(), loadFonts()])
   defineImageVariables(manifest())
-  await installExtensions({ hooks, assetUrl })
+  // A failing extension pack must not prevent the base game from starting.
+  try {
+    await installExtensions({ hooks, assetUrl })
+  } catch (error) {
+    console.error('Extensions could not be installed:', error)
+  }
   showStartScreen(startGame)
 }
 

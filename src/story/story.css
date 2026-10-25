@@ -1,0 +1,309 @@
+/* Story area, events and story menus, ported from the Java version's textflow and menu stylesheets. */
+
+.background-layer {
+  position: absolute;
+  inset: 0;
+  background: top center / cover no-repeat;
+  filter: brightness(0.5);
+}
+
+/* ---------- Text ---------- */
+
+.textflow {
+  max-width: 500px;
+  font-family: 'AnotherTypeWriter', monospace;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.title-display {
+  text-align: center;
+}
+
+.text-display {
+  text-align: justify;
+}
+
+.textflow .one-word {
+  font-size: 60px;
+}
+.textflow .small-paragraph {
+  font-size: 20px;
+}
+.textflow .long-text {
+  font-size: 14px;
+}
+.textflow.story-title {
+  font-size: 50px;
+}
+
+/* Story fonts, for titles and in the stories menu. */
+.story-uplifting,
+.story-uplifting-menu {
+  font-family: 'Mama', cursive;
+}
+.story-science-fantasy,
+.story-science-fantasy-menu {
+  font-family: 'Nexhope', serif;
+}
+.story-mystery,
+.story-mystery-menu {
+  font-family: 'Roman New Times', serif;
+}
+.story-steampunk,
+.story-steampunk-menu {
+  font-family: 'Verve', serif;
+}
+
+/* ---------- Event displays ---------- */
+
+.lcd-timer,
+.lcd-count {
+  font-family: 'LCDMono2', monospace;
+  font-size: 25px;
+}
+.lcd-timer {
+  color: red;
+}
+.lcd-count {
+  color: gold;
+}
+
+.progress-circle {
+  --progress: 0deg;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 14px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent) var(--progress), rgba(255, 255, 255, 0.15) 0);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+.progress-circle::after {
+  content: attr(data-percent);
+  position: absolute;
+  top: 54px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: normal;
+  color: #fff;
+}
+
+.progress-circle[hidden] {
+  display: none;
+}
+
+/* ---------- Chests ---------- */
+
+.chests {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 2em 0;
+  pointer-events: auto;
+}
+
+/* Pixel art shown x4: closed chests are 28x20, opened ones 30x23. */
+.chest {
+  width: 120px;
+  height: 92px;
+  background: var(--chest-closed) center bottom / 112px 80px no-repeat;
+  image-rendering: pixelated;
+  transition: transform 0.1s;
+}
+
+.chest:enabled:hover {
+  transform: translateY(-4px);
+}
+
+.chest.opened {
+  background-image: var(--chest-opened);
+  background-size: 120px 92px;
+}
+
+.chest-wooden {
+  --chest-closed: var(--img-buttons-chests-closed-wooden-chest);
+  --chest-opened: var(--img-buttons-chests-opened-wooden-chest);
+}
+.chest-black {
+  --chest-closed: var(--img-buttons-chests-closed-black-chest);
+  --chest-opened: var(--img-buttons-chests-opened-black-chest);
+}
+.chest-golden {
+  --chest-closed: var(--img-buttons-chests-closed-golden-chest);
+  --chest-opened: var(--img-buttons-chests-opened-golden-chest);
+}
+.chest-white {
+  --chest-closed: var(--img-buttons-chests-closed-white-chest);
+  --chest-opened: var(--img-buttons-chests-opened-white-chest);
+}
+
+/* ---------- Quizzes ---------- */
+
+.quizz-answers {
+  display: grid;
+  grid-template-columns: repeat(2, 144px);
+  justify-content: center;
+  gap: 20px;
+  margin-top: 1em;
+  pointer-events: auto;
+}
+
+.custom-button.quizz-button {
+  font-family: 'AnotherTypeWriter', monospace;
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ---------- Stories menu ---------- */
+
+.stories-panel .menu-box {
+  align-items: stretch;
+  padding: 20px;
+}
+
+/* Parchments are sliced (9-slice): their rolled edges keep their size instead of being stretched. */
+.story-block {
+  padding: 5px 15px;
+  border-image: var(--img-backgrounds-paper-scroll) 16 fill / 16px;
+  image-rendering: pixelated;
+}
+
+.story-block-ended {
+  border-image-source: var(--img-backgrounds-golden-paper-scroll);
+}
+
+/* Its right part holds the "BONUS" stamp, kept whole. */
+.story-block-bonus {
+  border-image: var(--img-backgrounds-bonus-golden-paper-scroll) 12 110 12 14 fill / 12px 110px 12px 14px;
+  padding-right: 110px;
+}
+
+.story-block [class$='-menu'] {
+  font-size: 16px;
+  color: maroon;
+}
+
+.story-block .story-mystery-menu {
+  font-size: 25px;
+}
+
+.story-postapo-menu {
+  font-family: 'AnotherTypeWriter', monospace;
+}
+
+.story-squares {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 5px;
+}
+
+/* 32x32, shown at half size. */
+.story-square {
+  width: 16px;
+  height: 16px;
+  background: var(--square, var(--img-buttons-story-unread)) center / cover no-repeat;
+}
+
+.story-square:enabled:hover {
+  background-image: var(--square-hover);
+}
+
+.story-uplifting-read-button {
+  --square: var(--img-buttons-story-read-pink);
+  --square-hover: var(--img-buttons-story-read-pink-hover);
+}
+.story-science-fantasy-read-button {
+  --square: var(--img-buttons-story-read-teal);
+  --square-hover: var(--img-buttons-story-read-teal-hover);
+}
+.story-mystery-read-button {
+  --square: var(--img-buttons-story-read-violet);
+  --square-hover: var(--img-buttons-story-read-violet-hover);
+}
+.story-steampunk-read-button {
+  --square: var(--img-buttons-story-read-golden);
+  --square-hover: var(--img-buttons-story-read-golden-hover);
+}
+.story-postapo-read-button {
+  --square: var(--img-buttons-story-read-blue);
+  --square-hover: var(--img-buttons-story-read-blue-hover);
+}
+
+/* A reread block: the picture, and the text over it while the mouse is on it. */
+.reread-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.reread-picture {
+  position: absolute;
+  inset: 0;
+  background: center / cover no-repeat;
+  transition: filter 0.2s;
+}
+
+.reread-text {
+  position: relative;
+  width: 457px;
+  max-height: 100%;
+  margin: 0;
+  overflow-y: auto;
+  font-family: 'AnotherTypeWriter', monospace;
+  font-size: 15px;
+  color: #fff;
+  text-align: justify;
+  white-space: pre-wrap;
+  visibility: hidden;
+}
+
+.reread-panel:hover .reread-picture {
+  filter: brightness(0.5);
+}
+
+.reread-panel:hover .reread-text {
+  visibility: visible;
+}
+
+/* ---------- Story bonuses menu ---------- */
+
+.bonus-toggle {
+  flex: none;
+}
+
+/* Sized by fitPixelImage() (src/ui/dom.js). */
+.bonus-icon {
+  display: block;
+}
+
+.achievement-block.locked .bonus-icon {
+  filter: grayscale(1);
+}
+
+.bonus-toggle:enabled:hover .bonus-icon {
+  filter: saturate(1.2);
+}
+
+.story-bonus-title,
+.story-bonus-title-locked {
+  font-family: 'AnotherTypeWriter', monospace;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.story-bonus-title {
+  color: green;
+}
+
+.story-bonus-title-locked {
+  color: maroon;
+}

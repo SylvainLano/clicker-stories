@@ -14,6 +14,11 @@ export function assetUrl(path) {
   return ASSETS_ROOT + path.split('/').map(encodeURIComponent).join('/')
 }
 
+// An asset path, or a file already loaded in memory (blob: or data: URL), which is kept as it is.
+export function resolveUrl(pathOrUrl) {
+  return /^(blob|data):/.test(pathOrUrl) ? pathOrUrl : assetUrl(pathOrUrl)
+}
+
 // Lists the asset paths inside a folder, optionally filtered by extension (".wav", ".json"...).
 export function listAssets(folder, extension) {
   const prefix = `/${folder.replace(/^\/|\/$/g, '')}/`

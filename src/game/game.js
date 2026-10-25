@@ -60,8 +60,9 @@ const ACHIEVEMENT_CONDITIONS = {
     ),
 }
 
-// Placeholder until the story engine is ported: no story, nothing to animate.
+// Until the story engine is attached (setStory): no story, nothing to animate.
 const NO_STORY = {
+  maxDigits: 20,
   animate() {},
   beforeHit: (roll) => roll,
   afterHit() {},
@@ -69,8 +70,9 @@ const NO_STORY = {
   update() {},
 }
 
-export function createGame({ stage, state, hud, effects, sounds, music, hooks, t, colors, achievements, storyBonuses, story = NO_STORY }) {
-  // Multipliers recomputed on every refresh from the curse level, temporary buffs and story bonuses.
+export function createGame({ stage, state, hud, effects, sounds, music, hooks, t, colors, achievements, storyBonuses }) {
+  let story = NO_STORY
+  // Multipliers recomputed on every refresh from the error count, temporary buffs and story bonuses.
   const multipliers = { xp: 1, money: 1, criticalChance: 1, criticalPower: 1, standardHit: 100, fruitFactor: 1 }
   const activeBuffs = []
   let clickTimes = []
@@ -105,7 +107,7 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
   }
 
   function digit(x, y, text, kind) {
-    effects.addDigit(x, y, text, kind)
+    effects.addDigit(x, y, text, kind, { maxDigits: story.maxDigits })
     if (countRecentClicks() < MAX_CLICK_PARTICLES) {
       for (let i = 0; i < 3; i++) effects.addParticle(x, y, accentColor)
     }
@@ -270,14 +272,14 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
 
   // Recomputes the multipliers and counts the buffs down.
   function refreshBuffs() {
-    const curse = 1 / (state.errorNumber + 1)
+    const penalty = 1 / (state.errorNumber + 1)
     Object.assign(multipliers, {
-      xp: curse * Math.pow(2, activeStoryBonuses('xpboost')),
-      money: curse,
-      criticalChance: curse,
-      criticalPower: curse,
+      xp: penalty * Math.pow(2, activeStoryBonuses('xpboost')),
+      money: penalty,
+      criticalChance: penalty,
+      criticalPower: penalty,
       standardHit: 100,
-      fruitFactor: curse,
+      fruitFactor: penalty,
     })
 
     hud.buffs.replaceChildren()
@@ -497,21 +499,49 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
     hud.mainButton.classList.remove('pressed')
   }
 
+  let buttonSkin = ''
+
   return {
+    state,
+    hud,
+    effects,
+    sounds,
+    music,
+    stage,
+    storyBonuses,
     multipliers,
+    get buffs() {
+      return activeBuffs
+    },
+    activeStoryBonuses,
     buy,
     activateBuff,
     onFruitCaught,
     addMoney,
     addExperience,
+    checkLevelUp,
+    buttonCenter,
+    digit,
     stopAutoClick,
     restartAutoClick,
     save,
     updateLabels,
     updateButtons,
+    setStory(engine) {
+      story = engine
+    },
     setCustomCursor(cursor) {
       customCursor = cursor
       refreshCursor()
+    },
+    // Skin of the main button, chosen by the current story or event (a CSS class, '' for the default one).
+    setButtonSkin(skin) {
+      if (buttonSkin) hud.mainButton.classList.remove(buttonSkin)
+      buttonSkin = skin ?? ''
+      if (buttonSkin) hud.mainButton.classList.add(buttonSkin)
+    },
+    setCredits(text) {
+      hud.setCredits(hooks.transform('creditsText', text))
     },
 
     // Mouse click on the main button: numbers fly from where it was clicked.

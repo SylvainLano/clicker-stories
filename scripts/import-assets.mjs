@@ -41,6 +41,16 @@ const LOSSY_THRESHOLD = 200 * 1024
 const MAX_BACKGROUND_SIZE = { width: 1600, height: 1200 }
 // Browsers ignore cursor images above 128px; JavaFX scaled them down to the system size, 32px on Windows.
 const CURSOR_SIZE = 32
+// Pixel art saved enlarged (each pixel drawn as a k x k block) is brought back to its real size, so that the
+// game can show it at whole multiples, sharp. Only small images are checked.
+const PIXEL_ART_MAX_SIZE = 256
+// Smooth (non pixel art) icons, much bigger than displayed: reduced to twice their displayed size.
+const SMOOTH_RESIZES = [
+  ['images/buttons/Icon_Large_', { height: 32 }],
+  ['images/buttons/story-icon', { height: 40 }],
+]
+// Frames drawn with transparent margins: trimmed, so that CSS can slice them (border-image).
+const TRIMMED = ['images/backgrounds/achievement-background']
 
 function parseArgs(argv) {
   const args = { source: DEFAULT_SOURCE, excludeFrom: null, publicFrom: null, otherTarget: null }
@@ -92,9 +102,44 @@ function rewriteImagePaths(json) {
   )
 }
 
-async function convertImage(from, to) {
+// Largest k such that the image is made of k x k blocks of identical pixels (1 if none).
+async function pixelArtScale(file) {
+  const metadata = await sharp(file).metadata()
+  if (metadata.width > PIXEL_ART_MAX_SIZE || metadata.height > PIXEL_ART_MAX_SIZE) return 1
+  const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  const { width, height } = info
+  const sameAsBlockCorner = (k, x, y) => {
+    const pixel = (y * width + x) * 4
+    const corner = ((y - (y % k)) * width + (x - (x % k))) * 4
+    if (data[pixel + 3] === 0 && data[corner + 3] === 0) return true
+    return [0, 1, 2, 3].every((channel) => Math.abs(data[pixel + channel] - data[corner + channel]) <= 8)
+  }
+  for (const k of [8, 6, 5, 4, 3, 2]) {
+    if (width % k || height % k) continue
+    let blocks = true
+    for (let y = 0; y < height && blocks; y++) for (let x = 0; x < width && blocks; x++) blocks = sameAsBlockCorner(k, x, y)
+    if (blocks) return k
+  }
+  return 1
+}
+
+// Trimming, smooth or pixel-art resizing, depending on the image (see the lists above).
+async function prepareImage(from, path) {
+  let image = sharp(from)
+  if (TRIMMED.some((prefix) => path.startsWith(prefix))) return image.trim()
+  const smooth = SMOOTH_RESIZES.find(([prefix]) => path.startsWith(prefix))
+  if (smooth) return image.resize({ ...smooth[1], kernel: 'lanczos3' })
+  const scale = await pixelArtScale(from)
+  if (scale > 1) {
+    const { width, height } = await image.metadata()
+    image = image.resize(width / scale, height / scale, { kernel: 'nearest' })
+  }
+  return image
+}
+
+async function convertImage(from, to, path) {
   const { size } = await stat(from)
-  const image = sharp(from)
+  const image = await prepareImage(from, path)
   if (size > LOSSY_THRESHOLD) {
     await image
       .resize({ ...MAX_BACKGROUND_SIZE, fit: 'inside', withoutEnlargement: true })
@@ -105,14 +150,14 @@ async function convertImage(from, to) {
   }
 }
 
-async function importFile(from, to) {
+async function importFile(from, to, path) {
   await mkdir(dirname(to), { recursive: true })
   if (from.endsWith('.json')) {
     const json = rewriteImagePaths((await readFile(from, 'utf8')).replace(/^﻿/, ''))
     JSON.parse(json) // fail loudly on invalid data rather than at play time
     await writeFile(to, json)
   } else if (to.endsWith('.webp')) {
-    await convertImage(from, to)
+    await convertImage(from, to, path)
   } else if (to.replaceAll('\\', '/').includes('/images/cursors/')) {
     await sharp(from).resize(CURSOR_SIZE, CURSOR_SIZE).png().toFile(to)
   } else {
@@ -147,7 +192,7 @@ async function main() {
   await rm(PUBLIC_TARGET, { recursive: true, force: true })
   if (otherTarget) await rm(otherTarget, { recursive: true, force: true })
   await runInBatches(kept, 8, (path) =>
-    importFile(join(source, path), join(isPublic(path) ? PUBLIC_TARGET : otherTarget, outputPath(path))),
+    importFile(join(source, path), join(isPublic(path) ? PUBLIC_TARGET : otherTarget, outputPath(path)), path),
   )
 
   const publicCount = kept.filter(isPublic).length

@@ -44,6 +44,12 @@
   gap: 10px;
 }
 
+/* Pixel art is shown at whole multiples of its size, without smoothing: pixels stay square and sharp. */
+.pixelated {
+  image-rendering: pixelated;
+}
+
+/* 48x16 pixel art, shown x3. */
 .custom-button {
   --button-normal: var(--img-buttons-click-button-default-normal);
   --button-hover: var(--img-buttons-click-button-default-hover);
@@ -52,6 +58,7 @@
   height: 48px;
   padding: 0 0 5px;
   background: var(--button-normal) center / cover no-repeat;
+  image-rendering: pixelated;
   font-family: 'Alagard', serif;
   font-size: 18px;
   color: #000;
@@ -151,15 +158,17 @@
   right: 10px;
 }
 
+/* 48x16 pixel art, shown x3 (132x44 in the Java version, which blurred it). */
 .squared-button {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 132px;
-  height: 44px;
+  width: 144px;
+  height: 48px;
   padding: 0 0 6px;
   background: var(--img-buttons-squared-button-default-normal) center / cover no-repeat;
+  image-rendering: pixelated;
   font-family: 'Early GameBoy', monospace;
   font-size: 8px;
   line-height: 1.4;
@@ -234,19 +243,20 @@
   height: 20px;
   background-size: cover;
 }
+/* 32x32, shown at half size. */
 .achievement-button {
   --icon: var(--img-buttons-achievement-icon);
   --icon-hover: var(--img-buttons-achievement-icon-hover);
-  width: 20px;
-  height: 20px;
-  background-size: cover;
+  width: 16px;
+  height: 16px;
 }
+/* 10x12 pixel art, shown x2. */
 .story-bonus-button {
   --icon: var(--img-buttons-story-bonus-icon);
   --icon-hover: var(--img-buttons-story-bonus-icon-hover);
   width: 20px;
-  height: 20px;
-  background-size: cover;
+  height: 24px;
+  image-rendering: pixelated;
 }
 
 /* ---------- Active temporary buffs (top left) ---------- */
@@ -365,12 +375,14 @@
   will-change: transform, opacity;
 }
 
+/* 16x16 pixel art, shown x2. */
 .fruit {
   position: absolute;
   left: 0;
   top: 0;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
   pointer-events: auto;
 }
 
@@ -393,7 +405,8 @@
   left: 133.33px;
   right: 133.33px;
   overflow-y: auto;
-  background: center / 100% 100% no-repeat;
+  /* Sliced (9-slice) rather than stretched: the corner screws keep their shape. */
+  border-image: var(--panel-image) 48 fill / 32px;
 }
 
 .menu-box {
@@ -406,13 +419,15 @@
   padding: 20px 0;
 }
 
+/* 12x12 pixel art, shown x2. */
 .close-button {
   position: absolute;
-  top: 105px;
-  right: 138.33px;
-  width: 12px;
-  height: 12px;
+  top: 102px;
+  right: 135.33px;
+  width: 24px;
+  height: 24px;
   background: var(--img-buttons-close-button) center / 100% 100% no-repeat;
+  image-rendering: pixelated;
 }
 
 .close-button:hover {
@@ -420,11 +435,11 @@
 }
 
 .planks-white {
-  background-image: var(--img-backgrounds-planks-white);
+  --panel-image: var(--img-backgrounds-planks-white);
 }
 
 .planks {
-  background-image: var(--img-backgrounds-planks);
+  --panel-image: var(--img-backgrounds-planks);
 }
 
 .options-row {
@@ -436,15 +451,17 @@
   height: 45px;
 }
 
+/* 16x12 pixel art flags, shown x2. */
 .lang-button {
-  width: 16px;
-  height: 12px;
+  width: 32px;
+  height: 24px;
 }
 
 .lang-button img {
   display: block;
-  width: 16px;
-  height: 12px;
+  width: 32px;
+  height: 24px;
+  image-rendering: pixelated;
 }
 
 .lang-button:not(.current) img {
@@ -469,16 +486,16 @@
   height: 60px;
   padding: 5px 15px;
   box-sizing: border-box;
-  background: var(--img-backgrounds-achievement-background) center / 100% 100% no-repeat;
+  /* Sliced rather than stretched (the Java version squashed the screws). */
+  border-image: var(--img-backgrounds-achievement-background) 40 fill / 20px;
 }
 
 .achievement-block.locked {
-  background-image: var(--img-backgrounds-achievement-background-grey);
+  border-image-source: var(--img-backgrounds-achievement-background-grey);
 }
 
+/* Sized by fitPixelImage() (src/ui/dom.js). */
 .achievement-block img {
-  width: 32px;
-  height: 32px;
   flex: none;
 }
 
@@ -522,7 +539,7 @@
   height: 50px;
   padding: 10px;
   box-sizing: border-box;
-  background: var(--img-backgrounds-achievement-background) center / 100% 100% no-repeat;
+  border-image: var(--img-backgrounds-achievement-background) 40 fill / 16px;
   pointer-events: none;
   transform: translateY(-50px);
 }
@@ -535,9 +552,8 @@
   left: 5px;
 }
 
+/* Sized by fitPixelImage() (src/ui/dom.js). */
 .toast-icon {
-  width: 32px;
-  height: 32px;
   flex: none;
 }
 

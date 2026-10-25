@@ -1,5 +1,5 @@
 import { assetUrl } from '../assets.js'
-import { element } from './dom.js'
+import { element, fitPixelImage } from './dom.js'
 
 const SLIDE_DURATION = 1000
 const SHOWN_DURATION = 5000
@@ -7,7 +7,7 @@ const SHOWN_DURATION = 5000
 // Slides a little card in from the top of the stage, then back out (AchievementAnimation in Java).
 // Achievements appear on the right, notifications (started/finished stories...) on the left.
 export function showToast(stage, { title, description, image, titleClass = 'achievement-title', side = 'right' }) {
-  const icon = element('img', 'toast-icon')
+  const icon = fitPixelImage(element('img', 'toast-icon'), 32)
   icon.src = assetUrl(image)
   icon.alt = ''
   const card = element(

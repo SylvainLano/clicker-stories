@@ -52,9 +52,13 @@ export function autoClickingDelay(autoClickingLevel) {
   return Math.max(3 * Math.exp(-0.2 * (autoClickingLevel - 1)), 0.1)
 }
 
+// 4999, then 5.0K... 4999.9K, then 5.0M...: each unit takes over at 5 of it.
+// The Java version stopped at B, so late costs read like "10316356453.9B".
+const NUMBER_UNITS = ['K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc']
+
 export function formatNumber(number) {
   if (number < 5000) return String(Math.trunc(number))
-  if (number < 5_000_000) return `${(number / 1000).toFixed(1)}K`
-  if (number < 5_000_000_000) return `${(number / 1_000_000).toFixed(1)}M`
-  return `${(number / 1_000_000_000).toFixed(1)}B`
+  let unit = -1
+  while (unit < NUMBER_UNITS.length - 1 && number >= 5 * 1000 ** (unit + 2)) unit++
+  return `${(number / 1000 ** (unit + 1)).toFixed(1)}${NUMBER_UNITS[unit]}`
 }
