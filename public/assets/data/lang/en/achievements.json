@@ -1,0 +1,65 @@
+[
+  {
+    "id": "adventure_begins",
+    "name": "Adventure Begins",
+    "description": "Unlocks by starting your first story",
+    "image": "/images/achievements/adventure_begins.webp",
+    "hidden": false
+  },
+  {
+    "id": "reach_your_goal",
+    "name": "Reach Your Goal",
+    "description": "Unlocks by completing the first story",
+    "image": "/images/achievements/reach_your_goal.webp",
+    "hidden": false
+  },
+  {
+    "id": "traveler",
+    "name": "Traveler",
+    "description": "Unlocks by completing five stories",
+    "image": "/images/achievements/traveler.webp",
+    "hidden": false
+  },
+  {
+    "id": "to_my_liking",
+    "name": "To My Liking",
+    "description": "Unlocks by reaching level 3",
+    "image": "/images/achievements/to_my_liking.webp",
+    "hidden": false
+  },
+  {
+    "id": "got_a_penchant",
+    "name": "Got A Penchant",
+    "description": "Unlocks by reaching level 6",
+    "image": "/images/achievements/got_a_penchant.webp",
+    "hidden": false
+  },
+  {
+    "id": "soft_spot_hit",
+    "name": "Soft Spot Hit",
+    "description": "Unlocks by reaching level 9",
+    "image": "/images/achievements/soft_spot_hit.webp",
+    "hidden": false
+  },
+  {
+    "id": "little_craving",
+    "name": "Little Craving",
+    "description": "Unlocks by reaching level 12",
+    "image": "/images/achievements/little_craving.webp",
+    "hidden": false
+  },
+  {
+    "id": "got_appetite",
+    "name": "Got Appetite",
+    "description": "Unlocks by reaching level 15",
+    "image": "/images/achievements/got_appetite.webp",
+    "hidden": false
+  },
+  {
+    "id": "greedy",
+    "name": "Greedy",
+    "description": "Unlocks by focusing on money",
+    "image": "/images/achievements/greedy.webp",
+    "hidden": true
+  }
+]

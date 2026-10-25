@@ -1,0 +1,63 @@
+:root {
+  --page-background: #000;
+  --title-outline: #fff;
+  --hint-color: #fff;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--page-background);
+}
+
+/* Centers the stage; a window smaller than the stage scrolls instead of shrinking the game. */
+#viewport {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* The game keeps its original fixed 800x600 size. */
+#stage {
+  position: relative;
+  flex: none;
+  margin: auto;
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  background: var(--page-background) center / cover no-repeat;
+  user-select: none;
+}
+
+.start-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: center / cover no-repeat;
+  cursor: pointer;
+}
+
+.start-title {
+  margin: 0;
+  font-family: 'Alagard', serif;
+  font-size: 64px;
+  font-weight: normal;
+  -webkit-text-stroke: 4px var(--title-outline);
+  paint-order: stroke fill;
+  transition: color 1s linear;
+}
+
+.start-hint {
+  font-family: 'AnotherTypeWriter', monospace;
+  font-size: 20px;
+  color: var(--hint-color);
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.3;
+  }
+}

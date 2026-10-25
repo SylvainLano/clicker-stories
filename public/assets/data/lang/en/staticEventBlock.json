@@ -1,0 +1,19 @@
+[
+  {
+    "text": "Choose one chest to gain an immediate reward !",
+    "weight": 5000,
+    "style": "small-paragraph",
+    "trigger": "chests",
+    "type": "chests"
+  },
+  {
+    "text": "STOP CLICKING!\nWait for the button to turn green and click as soon as possible to get rewarded with up to {reward} extra money!",
+    "weight": 5000,
+    "style": "small-paragraph",
+    "trigger": "money",
+    "type": "reflexe",
+	  "placeholders": {
+	    "{reward}": "reward"
+	  }
+  }
+]

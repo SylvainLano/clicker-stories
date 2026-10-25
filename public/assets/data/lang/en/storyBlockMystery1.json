@@ -1,0 +1,101 @@
+[
+  {
+    "text": "Echoes of Eternity",
+    "weight": 100,
+    "style": "story-mystery",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/WillowbrookByNight.webp",
+    "delay": 15,
+    "musicPath": "Eerily Calm - They Wont Let You Forget.mp3",
+    "musicCredits": "Eerily Calm - They Wont Let You Forget"
+  },
+  {
+    "text": "In the serene town of Willowbrook, where the rustling leaves whisper secrets and moonlight paints a haunting canvas, a series of inexplicable occurrences shatters the tranquil facade. Objects dance through the quietude, defying their resting places. Whispers, like spectral echoes, weave through the night air, their ethereal presence lingering like an unanswered question. Lights flicker intermittently without rhyme or reason, casting eerie shadows that beckon both fear and fascination.",
+    "weight": 509,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/WillowbrookByNight.webp",
+    "delay": 15,
+    "musicPath": "Eerily Calm - They Wont Let You Forget.mp3",
+    "musicCredits": "Eerily Calm - They Wont Let You Forget"
+  },
+  {
+    "text": "Amidst this unsettling backdrop, enters Detective Eliza — a woman of unyielding determination and a mind finely attuned to the enigmatic. Drawn into the heart of the mystery, she unveils an intricate thread, woven across time and space, that binds these mystifying events. This spectral thread draws her to a once-majestic mansion, nestled on the edge of town, its timeworn stones concealing untold secrets.",
+    "weight": 427,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/DetectiveEliza.webp",
+    "delay": 45,
+    "musicPath": "Kevin MacLeod - Deadly Roulette.mp3",
+    "musicCredits": "Kevin MacLeod - Deadly Roulette"
+  },
+  {
+    "text": "Within the mansion's depths, Eliza unearths diaries, each page whispering tales of a bygone era. Flickering candlelight once illuminated fervent words describing a forbidden ritual — a ceremony that should have remained dormant in history's embrace. As her fingers trace the inked confessions, her curiosity deepens, igniting the spark of an investigator's obsession.",
+    "weight": 387,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/ElizaInTheMansion.webp",
+    "delay": 45,
+    "musicPath": "Myuu - Haunted House.mp3",
+    "musicCredits": "Myuu - Haunted House"
+  },
+  {
+    "text": "Amid the forgotten pages of diaries, Eliza unearths a name — Isabella. With each piece of the puzzle she reconstructs, the town's veneer of normalcy peels away, revealing a tale of a love that transcended time's grasp, only to be ensnared by fate's cruel design. The spirit of Isabella, caught in the throes of restless eternity, seeks solace, her lingering presence a spectral tapestry woven into the very fabric of Willowbrook.",
+    "weight": 449,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/IsabellaAndHerBeloved.webp",
+    "delay": 170,
+    "musicPath": "Scott Buckley - Undertow.mp3",
+    "musicCredits": "Scott Buckley - Undertow"
+  },
+  {
+    "text": "Guided by cryptic riddles and enigmatic symbols, Eliza's footsteps bridge the divide between the living and the ethereal. As the moon casts a silvery glow upon the mansion's corridors, Eliza delves deeper into history's embrace. Shadows cast by her lantern dance like wraiths on the walls, whispering secrets only they remember.",
+    "weight": 348,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/ElizaToTheMoon.webp",
+    "delay": 170,
+    "musicPath": "Hazy - Dreamer.mp3",
+    "musicCredits": "Hazy - Dreamer.mp3"
+  },
+  {
+    "text": "With the tendrils of time wrapping around her, Eliza unearths the heart of the tale. A hidden chamber, concealed from prying eyes, becomes her sanctuary of revelation. In this sacred space, destiny converges with love, and sorrow mingles with yearning. The heartbeat of the mystery reverberates, a palpable pulse that resonates with the mysteries of the universe.",
+    "weight": 383,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/SecretChamber.webp",
+    "delay": 170,
+    "musicPath": "Jesse Gallagher - Spirit of Fire.mp3",
+    "musicCredits": "Jesse Gallagher - Spirit of Fire"
+  },
+  {
+    "text": "In a climactic juncture, Eliza confronts the spirit of Isabella — an ephemeral embodiment of heartache and longing. Tears blend, empathy forged through the tapestry of their intertwined fates. Across the boundaries of time, Eliza becomes a conduit, uniting a love that had been splintered by the whims of destiny.",
+    "weight": 335,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/IsabellasGhost.webp",
+    "delay": 50,
+    "musicPath": "Kevin MacLeod - Eternal Hope.mp3",
+    "musicCredits": "Kevin MacLeod - Eternal Hope"
+  },
+  {
+    "text": "As the first light of dawn breaks over the horizon, serenity envelops Willowbrook like a comforting embrace. Shadows recede, and the town's haunting whispers dissipate. It becomes a haven of tranquility, a testament to Eliza's courage and the power of compassion that bridged the gap between the realms of the living and the departed.",
+    "weight": 354,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/ElizaInTheDawn.webp",
+    "delay": 50,
+    "musicPath": "Kevin MacLeod - Eternal Hope.mp3",
+    "musicCredits": "Kevin MacLeod - Eternal Hope"
+  },
+  {
+    "text": "The tale is christened Echoes of Eternity, whispered with reverence in the wind. A tale that will be told for generations, a tribute to Detective Eliza, who defied the constraints of time and fate, weaving a love story that transcended the mortal realm.",
+    "weight": 273,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/ElizaInTheDawn.webp",
+    "delay": 50,
+    "musicPath": "Kevin MacLeod - Eternal Hope.mp3",
+    "musicCredits": "Kevin MacLeod - Eternal Hope"
+  },
+  {
+    "text": "The End",
+    "weight": 100,
+    "style": "one-word",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/ElizaInTheDawn.webp",
+    "delay": 50,
+    "musicPath": "Kevin MacLeod - Eternal Hope.mp3",
+    "musicCredits": "Kevin MacLeod - Eternal Hope"
+  }
+]

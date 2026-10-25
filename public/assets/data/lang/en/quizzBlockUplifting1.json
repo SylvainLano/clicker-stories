@@ -1,0 +1,114 @@
+[
+  {
+    "trigger": "storyBlockUplifting1-1",
+    "text": "In the story \"The Gift of Kindness\", what is the name of the elderly man Lily came across in the park?",
+      "answers": {
+	    "right": "Mr Thompson",
+	    "wrong1": "Mr Thomson",
+	    "wrong2": "Mr Thamesson",
+	    "wrong3": "Ms Thomson"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/LilyInThePark.webp",
+    "delay": 5,
+    "musicPath": "whitesand - dance of strings.mp3",
+    "musicCredits": "Whitesand - Dance of Strings",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockUplifting1-2",
+    "text": "In the story \"The Gift of Kindness\", who has Mr Thompson lost?",
+      "answers": {
+	    "right": "His wife",
+	    "wrong1": "His dog",
+	    "wrong2": "His son",
+	    "wrong3": "His sister"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/SittingInThePark.webp",
+    "delay": 5,
+    "musicPath": "Day 7 - The End.mp3",
+    "musicCredits": "Day 7 - The End",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockUplifting1-3",
+    "text": "In the story \"The Gift of Kindness\", what does Lily organize for Mr Thompson to bring back his joy?",
+      "answers": {
+	    "right": "An art exhibition",
+	    "wrong1": "A comedy show",
+	    "wrong2": "A jazz concert",
+	    "wrong3": "A wellness training"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/CommunityArtExhibit.webp",
+    "delay": 1,
+    "musicPath": "David Hyde - Acoustic Folk Instrumental.mp3",
+    "musicCredits": "David Hyde - Acoustic Folk Instrumental",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockUplifting1-4",
+    "text": "In the story \"The Gift of Kindness\", what can be seen on Mr Thompson face during the event organized by Lily?",
+      "answers": {
+	    "right": "A tear",
+	    "wrong1": "A smile",
+	    "wrong2": "A blush",
+	    "wrong3": "A blink"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/CommunityArtExhibit.webp",
+    "delay": 1,
+    "musicPath": "David Hyde - Acoustic Folk Instrumental.mp3",
+    "musicCredits": "David Hyde - Acoustic Folk Instrumental",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockUplifting1-5",
+    "text": "In the story \"The Gift of Kindness\", Lily's art exhibit was?",
+      "answers": {
+	    "right": "A success",
+	    "wrong1": "A failure",
+	    "wrong2": "Private",
+	    "wrong3": "A rip off"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/CommunityArtExhibit.webp",
+    "delay": 1,
+    "musicPath": "David Hyde - Acoustic Folk Instrumental.mp3",
+    "musicCredits": "David Hyde - Acoustic Folk Instrumental",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockUplifting1-6",
+    "text": "In the end of the story \"The Gift of Kindness\", Mr Thompson and Lily are?",
+      "answers": {
+	    "right": "Close friends",
+	    "wrong1": "Upset",
+	    "wrong2": "Separated",
+	    "wrong3": "Still in touch"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/SunsetInThePark.webp",
+    "delay": 1,
+    "musicPath": "Roman Senyk - Piano Inspiring Dream.mp3",
+    "musicCredits": "Roman Senyk - Piano Inspiring Dream",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockUplifting1-7",
+    "text": "In the beginning of the story \"The Gift of Kindness\", what is the town know for?",
+      "answers": {
+	    "right": "Its landscape",
+	    "wrong1": "Its resident",
+	    "wrong2": "Its community",
+	    "wrong3": "Its landmarks"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/SunsetInThePark.webp",
+    "delay": 1,
+    "musicPath": "Roman Senyk - Piano Inspiring Dream.mp3",
+    "musicCredits": "Roman Senyk - Piano Inspiring Dream",
+    "weight": 500
+  }
+]

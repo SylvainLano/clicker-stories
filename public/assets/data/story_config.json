@@ -1,0 +1,47 @@
+{
+  "default": {
+    "hoverCursor": "",
+    "normalCursor": "",
+    "mainButtonCSS": ""
+  },
+  "greenEvent": {
+    "hoverCursor": "/images/cursors/mouse-cursor-go.png",
+    "normalCursor": "/images/cursors/mouse-cursor-go.png",
+    "mainButtonCSS": "custom-button-go"
+  },
+  "redEvent": {
+    "hoverCursor": "/images/cursors/mouse-cursor-stop.png",
+    "normalCursor": "/images/cursors/mouse-cursor-stop.png",
+    "mainButtonCSS": "custom-button-stop"
+  },
+  "storyBlockUplifting1": {
+    "hoverCursor": "/images/cursors/mouse-cursor-heart-hover.png",
+    "normalCursor": "/images/cursors/mouse-cursor-heart-normal.png",
+    "mainButtonCSS": "custom-button-uplifting"
+  },
+  "storyBlockUplifting": {
+    "hoverCursor": "/images/cursors/mouse-cursor-heart-hover.png",
+    "normalCursor": "/images/cursors/mouse-cursor-heart-normal.png",
+    "mainButtonCSS": "custom-button-uplifting"
+  },
+  "storyBlockScienceFantasy": {
+    "hoverCursor": "/images/cursors/mouse-cursor-crescent-hover.png",
+    "normalCursor": "/images/cursors/mouse-cursor-crescent-normal.png",
+    "mainButtonCSS": "custom-button-science-fantasy"
+  },
+  "storyBlockMystery": {
+    "hoverCursor": "/images/cursors/mouse-cursor-voodoo-hover.png",
+    "normalCursor": "/images/cursors/mouse-cursor-voodoo-normal.png",
+    "mainButtonCSS": "custom-button-mystery"
+  },
+  "storyBlockSteampunk": {
+    "hoverCursor": "/images/cursors/mouse-cursor-cogs-hover.png",
+    "normalCursor": "/images/cursors/mouse-cursor-cogs-normal.png",
+    "mainButtonCSS": "custom-button-steampunk"
+  },
+  "storyBlockPostApo": {
+    "hoverCursor": "/images/cursors/mouse-cursor-biohazard-hover.png",
+    "normalCursor": "/images/cursors/mouse-cursor-biohazard-normal.png",
+    "mainButtonCSS": "custom-button-postapo"
+  }
+}

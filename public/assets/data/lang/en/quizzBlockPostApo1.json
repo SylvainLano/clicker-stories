@@ -1,0 +1,162 @@
+[
+  {
+    "trigger": "storyBlockPostApo1-1",
+    "text": "In the story \"Dust and Redemption\", what caused the civilization to crumble?",
+      "answers": {
+	    "right": "The Collapse",
+	    "wrong1": "The Event",
+	    "wrong2": "A Nuclear War",
+	    "wrong3": "The Skyfall"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/DustyLandscape.webp",
+    "delay": 1,
+    "musicPath": "Ross Bugden - The Wasteland.mp3",
+    "musicCredits": "Ross Bugden - The Wasteland",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockPostApo1-2",
+    "text": "In the story \"Dust and Redemption\", what is the name of the lone survivor?",
+      "answers": {
+	    "right": "Kael",
+	    "wrong1": "Kyle",
+	    "wrong2": "Korg",
+	    "wrong3": "Kent"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/DrivingInTheScorchedWasteland.webp",
+    "delay": 1,
+    "musicPath": "Jaxius - Synthwave Retrowave.mp3",
+    "musicCredits": "Jaxius - Synthwave Retrowave",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockPostApo1-3",
+    "text": "In the story \"Dust and Redemption\", how is Keal reaching the city?",
+      "answers": {
+	    "right": "Driving",
+	    "wrong1": "Walking",
+	    "wrong2": "Flying",
+	    "wrong3": "Biking"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/ReachingTheCity.webp",
+    "delay": 1,
+    "musicPath": "Matt “Darkvine” Posuniak - Desolation.mp3",
+    "musicCredits": "Matt “Darkvine” Posuniak @darkvinemusic - Desolation",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockPostApo1-4",
+    "text": "In the story \"Dust and Redemption\", what is the name of the place giving hope to Kael?",
+      "answers": {
+	    "right": "Eden's Embrace",
+	    "wrong1": "Eden's Garden",
+	    "wrong2": "Eden's Park",
+	    "wrong3": "Eden's Grasp"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/KaelInTheCity.webp",
+    "delay": 1,
+    "musicPath": "z3r0 - Nameless Land.mp3",
+    "musicCredits": "z3r0 - Nameless Land",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockPostApo1-5",
+    "text": "In the story \"Dust and Redemption\", how many allies does Kael have?",
+      "answers": {
+	    "right": "None",
+	    "wrong1": "One enigmatic figure",
+	    "wrong2": "Two side-kicks",
+	    "wrong3": "A group of survivors"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/KaelSittingInTheCity.webp",
+    "delay": 1,
+    "musicPath": "z3r0 - Nameless Land.mp3",
+    "musicCredits": "z3r0 - Nameless Land",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockPostApo1-6",
+    "text": "In the story \"Dust and Redemption\", what is the main danger in the ruins?",
+      "answers": {
+	    "right": "Raiders patrols",
+	    "wrong1": "Crumbling buildings",
+	    "wrong2": "Nuclear wastes",
+	    "wrong3": "Hostile survivors"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/RaidersPatrol.webp",
+    "delay": 1,
+    "musicPath": "Karl Casey @ White Bat Audio - Ghosts.mp3",
+    "musicCredits": "Karl Casey @ White Bat Audio - Ghosts",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockPostApo1-7",
+    "text": "In the story \"Dust and Redemption\", where is Eden's Embrace located in?",
+      "answers": {
+	    "right": "A laboratory",
+	    "wrong1": "A hidden chamber",
+	    "wrong2": "A museum",
+	    "wrong3": "A school"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/ForgottenLaboratory.webp",
+    "delay": 1,
+    "musicPath": "MONIN - Binary Stars.mp3",
+    "musicCredits": "MONIN - Binary Stars",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockPostApo1-7",
+    "text": "In the story \"Dust and Redemption\", what aspect of Eden's Embrace is menacing?",
+      "answers": {
+	    "right": "Its spores",
+	    "wrong1": "Its sap",
+	    "wrong2": "Its seeds",
+	    "wrong3": "Its leaves"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/ForgottenLaboratory.webp",
+    "delay": 1,
+    "musicPath": "MONIN - Binary Stars.mp3",
+    "musicCredits": "MONIN - Binary Stars",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockPostApo1-8",
+    "text": "In the story \"Dust and Redemption\", how can Kael destroy Eden's Embrace?",
+      "answers": {
+	    "right": "Fire",
+	    "wrong1": "Weedkiller",
+	    "wrong2": "Acid",
+	    "wrong3": "Sunlight deprivation"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/ForgottenLaboratory.webp",
+    "delay": 1,
+    "musicPath": "Myuu - Hold On.mp3",
+    "musicCredits": "Myuu - Hold On",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockPostApo1-9",
+    "text": "In the story \"Dust and Redemption\", what is Kael driving?",
+      "answers": {
+	    "right": "An old muscle car",
+	    "wrong1": "An armored truck",
+	    "wrong2": "Whatever works",
+	    "wrong3": "A found family car"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/FleeingTheCity.webp",
+    "delay": 1,
+    "musicPath": "Jaxius - Synthwave Retrowave.mp3",
+    "musicCredits": "Jaxius - Synthwave Retrowave",
+    "weight": 500
+  }
+]

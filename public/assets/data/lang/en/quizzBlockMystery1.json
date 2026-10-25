@@ -1,0 +1,146 @@
+[
+  {
+    "trigger": "storyBlockMystery1-1",
+    "text": "In the story \"Echoes of Eternity\", what is the name of the town where the events take place?",
+      "answers": {
+	    "right": "Willowbrook",
+	    "wrong1": "Willowcreek",
+	    "wrong2": "Hollowcreek",
+	    "wrong3": "Hollowbrook"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/WillowbrookByNight.webp",
+    "delay": 1,
+    "weight": 500,
+    "musicPath": "Eerily Calm - They Wont Let You Forget.mp3",
+    "musicCredits": "Eerily Calm - They Wont Let You Forget"
+  },
+  {
+    "trigger": "storyBlockMystery1-2",
+    "text": "In the story \"Echoes of Eternity\", what is the name of the detective?",
+      "answers": {
+	    "right": "Eliza",
+	    "wrong1": "Elsa",
+	    "wrong2": "Eli",
+	    "wrong3": "Elyra"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/DetectiveEliza.webp",
+    "delay": 1,
+    "musicPath": "Kevin MacLeod - Deadly Roulette.mp3",
+    "musicCredits": "Kevin MacLeod - Deadly Roulette",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockMystery1-3",
+    "text": "In the story \"Echoes of Eternity\", what does Eliza discover that triggers her obsession?",
+      "answers": {
+	    "right": "A forbidden ritual",
+	    "wrong1": "A locked safe",
+	    "wrong2": "Blood splatter",
+	    "wrong3": "Strange voices"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/ElizaInTheMansion.webp",
+    "delay": 1,
+    "musicPath": "Myuu - Haunted House.mp3",
+    "musicCredits": "Myuu - Haunted House",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockMystery1-4",
+    "text": "In the story \"Echoes of Eternity\", what force trapped the spirit of Isabella for a restless eternity?",
+      "answers": {
+	    "right": "Love",
+	    "wrong1": "Hate",
+	    "wrong2": "Shame",
+	    "wrong3": "Envy"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/IsabellaAndHerBeloved.webp",
+    "delay": 1,
+    "musicPath": "Scott Buckley - Undertow.mp3",
+    "musicCredits": "Scott Buckley - Undertow",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockMystery1-4",
+    "text": "In the story \"Echoes of Eternity\", what does Eliza use to bring light to the old mansion?",
+      "answers": {
+	    "right": "A lantern",
+	    "wrong1": "Candles",
+	    "wrong2": "The moonlight",
+	    "wrong3": "A flash light"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/ElizaToTheMoon.webp",
+    "delay": 1,
+    "musicPath": "Hazy - Dreamer.mp3",
+    "musicCredits": "Hazy - Dreamer.mp3",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockMystery1-5",
+    "text": "In the story \"Echoes of Eternity\", what does Eliza unearth?",
+      "answers": {
+	    "right": "A hidden chamber",
+	    "wrong1": "A lost treasure",
+	    "wrong2": "A forbidden art",
+	    "wrong3": "A odd sculpture"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/SecretChamber.webp",
+    "delay": 1,
+    "musicPath": "Jesse Gallagher - Spirit of Fire.mp3",
+    "musicCredits": "Jesse Gallagher - Spirit of Fire",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockMystery1-6",
+    "text": "In the story \"Echoes of Eternity\", what does Eliza become for spirit of Isabella?",
+      "answers": {
+	    "right": "A conduit",
+	    "wrong1": "An earthly body",
+	    "wrong2": "A puppet",
+	    "wrong3": "A friend"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/IsabellasGhost.webp",
+    "delay": 1,
+    "musicPath": "Kevin MacLeod - Eternal Hope.mp3",
+    "musicCredits": "Kevin MacLeod - Eternal Hope",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockMystery1-7",
+    "text": "In the story \"Echoes of Eternity\", what time is it when shadows recede?",
+      "answers": {
+	    "right": "Dawn",
+	    "wrong1": "Midnight",
+	    "wrong2": "Dusk",
+	    "wrong3": "Noon"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/ElizaInTheDawn.webp",
+    "delay": 1,
+    "musicPath": "Kevin MacLeod - Eternal Hope.mp3",
+    "musicCredits": "Kevin MacLeod - Eternal Hope",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockMystery1-8",
+    "text": "In the story \"Echoes of Eternity\", what is the occupation of Eliza?",
+      "answers": {
+	    "right": "Detective",
+	    "wrong1": "Scientist",
+	    "wrong2": "Police officer",
+	    "wrong3": "Seer"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/mystery/EchoesOfEternity/ElizaInTheDawn.webp",
+    "delay": 1,
+    "musicPath": "Kevin MacLeod - Eternal Hope.mp3",
+    "musicCredits": "Kevin MacLeod - Eternal Hope",
+    "weight": 500
+  }
+]

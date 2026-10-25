@@ -1,0 +1,155 @@
+[
+  {
+    "trigger": "storyBlockSteampunk1-1",
+    "text": "In the story \"Whispers of the Brass City\", what is the name of the city?",
+      "answers": {
+	    "right": "Serencroft",
+	    "wrong1": "Sewercross",
+	    "wrong2": "Sirencraft",
+	    "wrong3": "Sevendraft"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/Serencroft-aerial-view.webp",
+    "delay": 5,
+    "weight": 500,
+    "musicPath": "Wintergatan - Wintergatan - 07 Starmachine2000.mp3",
+    "musicCredits": "Wintergatan - Starmachine2000",
+    "musicVolume": 0.3
+  },
+  {
+    "trigger": "storyBlockSteampunk1-2",
+    "text": "In the story \"Whispers of the Brass City\", what is the name of the visionary inventor?",
+      "answers": {
+	    "right": "Lavinia",
+	    "wrong1": "Serencroft",
+	    "wrong2": "Victor",
+	    "wrong3": "The Cog Master"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/LaviniaAndTheBlueprint.webp",
+    "delay": 1,
+    "musicPath": "Wintergatan - Wintergatan - 01 Sommarfågel.mp3",
+    "musicCredits": "Wintergatan - Sommarfågel",
+    "musicVolume": 0.3,
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockSteampunk1-3",
+    "text": "In the story \"Whispers of the Brass City\", what special thing does Lavinia possess?",
+      "answers": {
+	    "right": "A blueprint",
+	    "wrong1": "The master cog",
+	    "wrong2": "A nobility title",
+	    "wrong3": "The key to the city"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/MeatVictor.webp",
+    "delay": 1,
+    "musicPath": "Wintergatan - Single - Marble Machine.mp3",
+    "musicCredits": "Wintergatan - Marble Machine",
+    "musicVolume": 0.3,
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockSteampunk1-4",
+    "text": "In the story \"Whispers of the Brass City\", what guards the city?",
+      "answers": {
+	    "right": "Automatons",
+	    "wrong1": "Tesla coils",
+	    "wrong2": "Steam turrets",
+	    "wrong3": "Flame throwers"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/SteampunkAutomaton.webp",
+    "delay": 1,
+    "musicPath": "Wintergatan - Wintergatan - 03 Valentine.mp3",
+    "musicCredits": "Wintergatan - Valentine",
+    "musicVolume": 0.3,
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockSteampunk1-5",
+    "text": "In the story \"Whispers of the Brass City\", what lies in the epicenter of the city?",
+      "answers": {
+	    "right": "A clock tower",
+	    "wrong1": "A steam engine",
+	    "wrong2": "A control station",
+	    "wrong3": "An automaton"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/TheClockTower.webp",
+    "delay": 1,
+    "musicPath": "Wintergatan - Wintergatan - 04 Slottskogen Disc Golf Club.mp3",
+    "musicCredits": "Wintergatan - Slottskogen Disc Golf Club",
+    "musicVolume": 0.3,
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockSteampunk1-6",
+    "text": "In the story \"Whispers of the Brass City\", the clock tower is?",
+      "answers": {
+	    "right": "Ticking",
+	    "wrong1": "Broken",
+	    "wrong2": "Off",
+	    "wrong3": "Irregular"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/OnTheClockTower.webp",
+    "delay": 1,
+    "musicPath": "Wintergatan - Wintergatan - 09 Paradis.mp3",
+    "musicCredits": "Wintergatan - Paradis",
+    "musicVolume": 0.3,
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockSteampunk1-7",
+    "text": "In the story \"Whispers of the Brass City\", who wields the blueprint's power?",
+      "answers": {
+	    "right": "Victor",
+	    "wrong1": "Lavinia",
+	    "wrong2": "An automaton",
+	    "wrong3": "The Cog Master"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/TheHeartOfTheCity.webp",
+    "delay": 1,
+    "musicPath": "Wintergatan - Wintergatan - 02 The Rocket.mp3",
+    "musicCredits": "Wintergatan - The Rocket",
+    "musicVolume": 0.3,
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockSteampunk1-8",
+    "text": "In the story \"Whispers of the Brass City\", when the blueprint is used, the Order becomes?",
+      "answers": {
+	    "right": "Impotent",
+	    "wrong1": "Stronger",
+	    "wrong2": "Enraged",
+	    "wrong3": "Weakened"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/VictorInTheHeart.webp",
+    "delay": 1,
+    "musicPath": "Wintergatan - Single - Marble Machine.mp3",
+    "musicCredits": "Wintergatan - Marble Machine",
+    "musicVolume": 0.3,
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockSteampunk1-9",
+    "text": "In the end of the story \"Whispers of the Brass City\", how is the firmament?",
+      "answers": {
+	    "right": "Kaleidoscopic",
+	    "wrong1": "Crystal clear",
+	    "wrong2": "Ethereal",
+	    "wrong3": "Bright and blue"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/VictorAndLavinia.webp",
+    "delay": 60,
+    "musicPath": "Wintergatan - Wintergatan - 05 Biking Is Better.mp3",
+    "musicCredits": "Wintergatan - Biking Is Better",
+    "musicVolume": 0.3,
+    "weight": 500
+  }
+]

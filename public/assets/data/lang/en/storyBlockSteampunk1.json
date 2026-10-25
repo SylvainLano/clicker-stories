@@ -1,0 +1,112 @@
+[
+  {
+    "text": "Whispers of\nthe Brass City",
+    "weight": 100,
+    "style": "story-steampunk",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/Serencroft-aerial-view.webp",
+    "delay": 15,
+    "musicPath": "Wintergatan - Wintergatan - 07 Starmachine2000.mp3",
+    "musicCredits": "Wintergatan - Starmachine2000",
+    "musicVolume": 0.3
+  },
+  {
+    "text": "Amidst the sprawling metropolis of Serencroft, where the pulse of industry reverberates through turning gears and hissing steam, a captivating symphony unfolds. The air itself holds a shroud of mystery, as hidden beneath the façade of opulence and order, intricate secrets find refuge among the labyrinthine interplay of gears and cogs, waiting to be unraveled by those who dare to delve deeper into its enigmatic depths.",
+    "weight": 471,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/Serencroft-aerial-view.webp",
+    "delay": 45,
+    "musicPath": "Wintergatan - Wintergatan - 07 Starmachine2000.mp3",
+    "musicCredits": "Wintergatan - Starmachine2000",
+    "musicVolume": 0.3
+  },
+  {
+    "text": "In the heart of the metropolis, the brilliant mind of Lavinia, a visionary inventor, unraveled a concealed blueprint, its significance capable of reshaping the city's destiny. Yet, this newfound revelation was far from free of consequences; the shadows cast by the enigmatic Order of Cogs lengthened, their relentless pursuit of her creation a reminder of the costs that innovation and progress could demand.",
+    "weight": 458,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/LaviniaAndTheBlueprint.webp",
+    "delay": 45,
+    "musicPath": "Wintergatan - Wintergatan - 01 Sommarfågel.mp3",
+    "musicCredits": "Wintergatan - Sommarfågel",
+    "musicVolume": 0.3
+  },
+  {
+    "text": "Exploring the labyrinthine underbelly of the city, Lavinia's path intertwined with that of Victor, a charismatic rogue who exuded an aura of mischief. Bound by fate, their lives became entangled as they embarked on a treacherous journey, determined to unveil the true purpose of the blueprint and to stand against the nefarious plans of the enigmatic Order of Cogs.",
+    "weight": 415,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/MeatVictor.webp",
+    "delay": 95,
+    "musicPath": "Wintergatan - Single - Marble Machine.mp3",
+    "musicCredits": "Wintergatan - Marble Machine",
+    "musicVolume": 0.3
+  },
+  {
+    "text": "In the city's depths, intricate clockwork automatons patrolled the shadows, their mechanical precision both awe-inspiring and unsettling. Like guardians of enigmatic knowledge, these engineering marvels heightened the sense of mystery. As Lavinia and Victor tread cautiously, stakes escalated, forging an unbreakable bond in the crucible of intrigue and danger.",
+    "weight": 411,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/SteampunkAutomaton.webp",
+    "delay": 50,
+    "musicPath": "Wintergatan - Wintergatan - 03 Valentine.mp3",
+    "musicCredits": "Wintergatan - Valentine",
+    "musicVolume": 0.3
+  },
+  {
+    "text": "The path they followed inevitably guided them to the epicenter of the Brass City—a colossal clock tower that loomed over the skyline. Within its intricate mechanisms lay the enigmatic key to unlocking the true potential of the hidden blueprint, a power capable of reshaping the very fabric of reality itself. The allure of such untold potential exerted an irresistible pull on their determination, beckoning them to explore further into the heart of the mystery.",
+    "weight": 512,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/TheClockTower.webp",
+    "delay": 95,
+    "musicPath": "Wintergatan - Wintergatan - 04 Slottskogen Disc Golf Club.mp3",
+    "musicCredits": "Wintergatan - Slottskogen Disc Golf Club",
+    "musicVolume": 0.3
+  },
+  {
+    "text": "Amidst the city's ceaseless symphony of gears, Lavinia and Victor found themselves at a pivotal juncture. A weighty decision loomed before them like the city's towering clockwork, its ticking echoing in their minds. They stood at the precipice of two destinies, torn between relinquishing the blueprint to maintain Serencroft's fragile equilibrium or wielding its transformative power against the relentless grip of the Order. As the last moments approached, the heavens above painted an otherworldly tableau, suffusing the sky with an ethereal radiance that mirrored the luminal crossroads of their fate.",
+    "weight": 655,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/OnTheClockTower.webp",
+    "delay": 100,
+    "musicPath": "Wintergatan - Wintergatan - 09 Paradis.mp3",
+    "musicCredits": "Wintergatan - Paradis",
+    "musicVolume": 0.3
+  },
+  {
+    "text": "With the Order's ominous shadow growing nearer and mechanical sentinels relentlessly advancing, Lavinia and Victor found themselves perched on the precipice of life-altering decisions. Serencroft's intricate clockwork reverberated with their weighty choices, while the sky underwent a metamorphosis, its hues shifting like the turning cogs of destiny. Braving the potential hazards that lay ahead, Victor determined to wield the blueprint's power within the heart of the clocktower.",
+    "weight": 532,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/TheHeartOfTheCity.webp",
+    "delay": 100,
+    "musicPath": "Wintergatan - Wintergatan - 02 The Rocket.mp3",
+    "musicCredits": "Wintergatan - The Rocket",
+    "musicVolume": 0.3
+  },
+  {
+    "text": "By deactivating the city's menacing mechanical defenses, Victor simultaneously dismantled the Order's stranglehold. In a resolute act, he rewired the very essence of the tower, rendering the Order impotent and securing their safety amidst the intricate gears of fate. Amidst the symphony of gears and the ethereal glow of the tower's heart, Victor's bold defiance echoed through the city, a testament to the triumph of ingenuity over tyranny.",
+    "weight": 492,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/VictorInTheHeart.webp",
+    "delay": 60,
+    "musicPath": "Wintergatan - Single - Marble Machine.mp3",
+    "musicCredits": "Wintergatan - Marble Machine",
+    "musicVolume": 0.3
+  },
+  {
+    "text": "As they gazed upon the kaleidoscopic firmament, Lavinia and Victor knew their decision reached beyond themselves. Serencroft's story was bound to the legacy of invention and steampunk dreams, a tale that echoed through the ages. The future was an open book, its pages inscribed by those who dared defy convention and shape the unknown. And so, amidst the city's gears and the luminous sky, Lavinia and Victor stepped forward, authors of their own destiny, their story intertwined with the resounding echoes of the Brass City.",
+    "weight": 575,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/VictorAndLavinia.webp",
+    "delay": 60,
+    "musicPath": "Wintergatan - Wintergatan - 05 Biking Is Better.mp3",
+    "musicCredits": "Wintergatan - Biking Is Better",
+    "musicVolume": 0.3
+  },
+  {
+    "text": "The end",
+    "weight": 100,
+    "style": "one-word",
+    "backgroundPath": "/images/backgrounds/stories/steampunk/WhispersOfTheBrassCity/VictorAndLavinia.webp",
+    "delay": 1,
+    "musicPath": "Wintergatan - Wintergatan - 05 Biking Is Better.mp3",
+    "musicCredits": "Wintergatan - Biking Is Better",
+    "musicVolume": 0.3
+  }
+]

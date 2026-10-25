@@ -1,0 +1,52 @@
+{
+  "main": {
+    "title": "Clicker Stories"
+  },
+  "statusLabel": {
+    "loaded": "Partie chargée avec succès.",
+    "saved": "Partie sauvegardée avec succès."
+  },
+  "caracteristics": {
+    "power": "Puissance",
+    "focus": "Concentration",
+    "critical": "Critique",
+    "fruits": "Fruits",
+    "moneyGain": "Argent",
+    "expGain": "Exp."
+  },
+  "buttons": {
+    "main": "Cliquez ici !",
+    "cost": "Prix ",
+    "unlockAutoclick": "Obtenir Auto",
+    "unlockCritical": "Obtenir Crits",
+    "unlockFruit": "Obtenir Fruits",
+    "autoDelay": "Cadence ",
+    "quitGame": "Quitter"
+  },
+  "buffs": {
+    "expGain": "Exp x5",
+    "moneyGain": "Argent x5",
+    "criticalBoth": "Tous les Critiques x2",
+    "storyChance": "Histoires ++",
+    "progressCircle": "Chargement x2",
+    "eventChance": "Événements ++",
+    "fullFocus": "Pas de Ratés",
+    "discount": "Remise"
+  },
+  "labels": {
+    "score": "Score : ",
+    "level": "Niveau : ",
+    "money": "Argent : "
+  },
+  "events": {
+    "took": " Vous avez mis ",
+    "toclick": " pour cliquer sur le bouton, et vous avez gagné "
+  },
+  "menus": {
+    "options": "Options",
+    "language": "Langues : "
+  },
+  "achievements": {
+    "newStory": "Vous avez commencé une nouvelle histoire !"
+  }
+}

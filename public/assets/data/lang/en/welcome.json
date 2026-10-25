@@ -1,0 +1,17 @@
+[
+  {
+    "text": "Welcome!",
+    "weight": 18,
+    "style": "one-word"
+  },
+  {
+    "text": "This game tells stories...\n\n and makes you level up!",
+    "weight": 67,
+    "style": "small-paragraph"
+  },
+    {
+    "text": "Click the buttons and read the stories.\n\nNow let's begin.",
+    "weight": 70,
+    "style": "small-paragraph"
+  }
+]

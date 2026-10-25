@@ -1,0 +1,83 @@
+[
+  {
+    "text": "The Gift\nof Kindness",
+    "weight": 100,
+    "style": "story-uplifting",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/TheGiftOfKindness.webp",
+    "delay": 15,
+    "musicPath": "whitesand - dance of strings.mp3",
+    "musicCredits": "Whitesand - Dance of Strings"
+  },
+  {
+    "text": "In a small town, there lived a young girl named Lily who was known for her kind and caring nature. Despite facing challenges in her own life, Lily always found a way to bring happiness to others. One day, while walking in the park, she came across an elderly man named Mr. Thompson sitting alone on a bench, looking sad. Lily approached him with a warm smile and struck up a conversation.",
+    "weight": 413,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/LilyInThePark.webp",
+    "delay": 200,
+    "musicPath": "whitesand - dance of strings.mp3",
+    "musicCredits": "Whitesand - Dance of Strings"
+  },
+  {
+    "text": "Mr. Thompson revealed that he had recently lost his beloved wife, and he was feeling lonely and lost without her. Lily listened attentively, offering words of comfort and understanding. She noticed that Mr. Thompson loved to paint but hadn't done so in a long time due to his grief.",
+    "weight": 307,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/SittingInThePark.webp",
+    "delay": 50,
+    "musicPath": "Day 7 - The End.mp3",
+    "musicCredits": "Day 7 - The End"
+  },
+  {
+    "text": "Determined to bring some joy into Mr. Thompson's life, Lily decided to organize a community art exhibition in honor of his late wife. She invited people of all ages to participate, encouraging them to create art that expressed love, joy, and kindness. The response was overwhelming, and the town came together to support Mr. Thompson.",
+    "weight": 359,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/CommunityArtExhibit.webp",
+    "delay": 90,
+    "musicPath": "David Hyde - Acoustic Folk Instrumental.mp3",
+    "musicCredits": "David Hyde - Acoustic Folk Instrumental"
+  },
+  {
+    "text": "As the exhibition day arrived, Lily was surprised to see the beautiful artwork displayed throughout the town hall. The atmosphere was filled with love and positivity. When Mr. Thompson saw the display, tears welled up in his eyes. He felt touched by the love and support from the community and was inspired to start painting again.",
+    "weight": 356,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/CommunityArtExhibit.webp",
+    "delay": 10,
+    "musicPath": "David Hyde - Acoustic Folk Instrumental.mp3",
+    "musicCredits": "David Hyde - Acoustic Folk Instrumental"
+  },
+  {
+    "text": "The art exhibition became a huge success, bringing the whole town together. The event not only helped Mr. Thompson heal but also inspired others to spread kindness and support one another. Lily's act of kindness had a ripple effect, fostering a sense of unity and compassion among the townspeople.",
+    "weight": 322,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/CommunityArtExhibit.webp",
+    "delay": 10,
+    "musicPath": "David Hyde - Acoustic Folk Instrumental.mp3",
+    "musicCredits": "David Hyde - Acoustic Folk Instrumental"
+  },
+  {
+    "text": "As time passed, Mr. Thompson's paintings gained recognition, and he found a renewed purpose in life. He and Lily became close friends, and they continued to bring joy to the community through their acts of kindness.",
+    "weight": 240,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/SunsetInThePark.webp",
+    "delay": 20,
+    "musicPath": "Roman Senyk - Piano Inspiring Dream.mp3",
+    "musicCredits": "Roman Senyk - Piano Inspiring Dream"
+  },
+  {
+    "text": "The story of Lily and Mr. Thompson became an inspiration to people everywhere, reminding them of the power of kindness and the impact it can have on the lives of others. And so, the small town became known not just for its beautiful landscape but also for its kind-hearted residents who knew the true value of compassion and empathy.",
+    "weight": 358,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/SunsetInThePark.webp",
+    "delay": 20,
+    "musicPath": "Roman Senyk - Piano Inspiring Dream.mp3",
+    "musicCredits": "Roman Senyk - Piano Inspiring Dream"
+  },
+  {
+    "text": "The end",
+    "weight": 50,
+    "style": "one-word",
+    "backgroundPath": "/images/backgrounds/stories/uplifting/TheGiftOfKindness/SunsetInThePark.webp",
+    "delay": 20,
+    "musicPath": "Roman Senyk - Piano Inspiring Dream.mp3",
+    "musicCredits": "Roman Senyk - Piano Inspiring Dream"
+  }
+]

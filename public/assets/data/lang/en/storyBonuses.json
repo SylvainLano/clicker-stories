@@ -1,0 +1,37 @@
+[
+  {
+    "id": "storyBlockMystery1",
+    "name": "Echoes of Eternity",
+    "description": "Get more Events",
+    "bonus": "events",
+    "image": "/images/cursors/mouse-cursor-voodoo-hover.png"
+  },
+  {
+    "id": "storyBlockScienceFantasy1",
+    "name": "The Nexus Chronicles",
+    "description": "Events and Fruits last longer",
+    "bonus": "moretime",
+    "image": "/images/cursors/mouse-cursor-crescent-hover.png"
+  },
+  {
+    "id": "storyBlockSteampunk1",
+    "name": "Whispers of the Brass City",
+    "description": "Permanent XP Boost x2",
+    "bonus": "xpboost",
+    "image": "/images/cursors/mouse-cursor-cogs-hover.png"
+  },
+  {
+    "id": "storyBlockUplifting1",
+    "name": "The Gift of Kindness",
+    "description": "Fruit Factor + 2",
+    "bonus": "fruits+2",
+    "image": "/images/cursors/mouse-cursor-heart-hover.png"
+  },
+  {
+    "id": "storyBlockPostApo1",
+    "name": "Dust and Redemption",
+    "description": "10 % discount on all purchases",
+    "bonus": "discount10",
+    "image": "/images/cursors/mouse-cursor-biohazard-hover.png"
+  }
+]

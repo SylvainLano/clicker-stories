@@ -1,0 +1,22 @@
+[
+  {
+    "text": "It looks like you have explored all the stories that were available, good job.",
+    "weight": 100,
+    "style": "small-paragraph"
+  },
+    {
+    "text": "We may be adding some more in the future, so stay tuned to any forthcoming announcement.",
+    "weight": 110,
+    "style": "small-paragraph"
+  },
+    {
+    "text": "You can still continue to play if you like the game or are somewhat addicted to it.\n\nMaybe you should restart it from the beginning?",
+    "weight": 150,
+    "style": "small-paragraph"
+  },
+  {
+    "text": "The end !",
+    "weight": 20,
+    "style": "one-word"
+  }
+]

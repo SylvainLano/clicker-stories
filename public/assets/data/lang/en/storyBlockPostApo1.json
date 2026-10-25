@@ -1,0 +1,110 @@
+[
+  {
+    "text": "Dust and\nRedemption",
+    "weight": 100,
+    "style": "story-postapo",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/DustyLandscape.webp",
+    "delay": 10,
+    "musicPath": "Ross Bugden - The Wasteland.mp3",
+    "musicCredits": "Ross Bugden - The Wasteland"
+  },
+  {
+    "text": "In the desolate aftermath of the Collapse, the world lay in ruins. Cities reduced to rubble, once-mighty structures now crumbled relics. Civilization had crumbled, and what remained was a lawless, scorched wasteland where every resource was a treasure, and gasoline was the lifeblood of survival.",
+    "weight": 350,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/DustyLandscape.webp",
+    "delay": 15,
+    "musicPath": "Ross Bugden - The Wasteland.mp3",
+    "musicCredits": "Ross Bugden - The Wasteland"
+  },
+  {
+    "text": "Amidst this bleak horizon, a lone survivor named Kael roared across the arid terrain in his ramshackle muscle car—a true relic of the past. Its engine roared like a defiant beast as he scavenged for gasoline, trading with ruthless scavenger bands for every precious drop. Every mile he drove was a gamble, for the wasteland was a desolate arena where the strong thrived and the weak perished.",
+    "weight": 450,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/DrivingInTheScorchedWasteland.webp",
+    "delay": 60,
+    "musicPath": "Jaxius - Synthwave Retrowave.mp3",
+    "musicCredits": "Jaxius - Synthwave Retrowave"
+  },
+  {
+    "text": "In the distance, a ghostly city stood as a haunting reminder of what once was. Its skeletal skyscrapers clawed at the sky, and its streets whispered secrets of a bygone era. Kael's relentless journey led him here, in search of elusive remnants of the past, tangible fragments of history that might offer a glimpse into what the world had been before it fell.",
+    "weight": 400,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/ReachingTheCity.webp",
+    "delay": 35,
+    "musicPath": "Matt “Darkvine” Posuniak - Desolation.mp3",
+    "musicCredits": "Matt “Darkvine” Posuniak @darkvinemusic - Desolation"
+  },
+  {
+    "text": "In the shadows of the city's wreckage, Kael stumbled upon an encrypted journal, its pages containing cryptic clues about a rumored sanctuary called “Eden's Embrace”. A place said to hold the promise of a new beginning—a sanctuary that could restore life to the barren wasteland and offer a glimmer of hope in the relentless darkness. Kael's fingers traced the faded words, his heart pounding with the possibility of salvation.",
+    "weight": 475,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/KaelInTheCity.webp",
+    "delay": 80,
+    "musicPath": "z3r0 - Nameless Land.mp3",
+    "musicCredits": "z3r0 - Nameless Land"
+  },
+  {
+    "text": "Kael's pursuit of Eden's Embrace was solitary, a lone wanderer in the unforgiving wasteland. Others who once shared his quest had either perished or abandoned hope. The city's outskirts remained devoid of allies, offering no respite from the relentless solitude that enveloped him.",
+    "weight": 350,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/KaelSittingInTheCity.webp",
+    "delay": 40,
+    "musicPath": "z3r0 - Nameless Land.mp3",
+    "musicCredits": "z3r0 - Nameless Land"
+  },
+  {
+    "text": "As Kael ventured further into the heart of the city, he moved through the labyrinthine ruins with only his own footsteps echoing in the silence. Raider warbands, forged in the crucible of the wasteland's brutality, scoured the remnants for any signs of intruders. Every step was a perilous wager, each shadow concealing a potential threat within the crumbling vestiges of a lost civilization—a solitary dance with danger against overwhelming odds.",
+    "weight": 525,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/RaidersPatrol.webp",
+    "delay": 40,
+    "musicPath": "Karl Casey @ White Bat Audio - Ghosts.mp3",
+    "musicCredits": "Karl Casey @ White Bat Audio - Ghosts"
+  },
+  {
+    "text": "The cryptic passages within the journal guided Kael to a long-forgotten laboratory, concealed beneath layers of dust and decay. In this forsaken chamber, the revelation about Eden's Embrace materialized—a truth he confronted in solitary contemplation. It transcended mere sanctuary; it embodied a multifaceted experiment, a desperate, last-ditch endeavor to resuscitate a world teetering on the precipice of oblivion—a beacon of hope amid encroaching darkness.",
+    "weight": 525,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/ForgottenLaboratory.webp",
+    "delay": 80,
+    "musicPath": "MONIN - Binary Stars.mp3",
+    "musicCredits": "MONIN - Binary Stars"
+  },
+  {
+    "text": "Eden's Embrace was no utopia, but it held a dual nature—a dormant vegetal lifeform, a breathtaking entity capable of restoring the green of the landscapes, breathing life back into the world. Yet, it also harbored spores that would reduce humanity to its primal origins, stripping away intellectual superiority and rendering them animals amongst others.",
+    "weight": 425,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/ForgottenLaboratory.webp",
+    "delay": 1,
+    "musicPath": "MONIN - Binary Stars.mp3",
+    "musicCredits": "MONIN - Binary Stars"
+  },
+  {
+    "text": "The choice bore down on Kael's heart, a profound and weighty burden. To awaken Eden's Embrace meant consigning humanity to extinction in an Eden's garden—a realm of lush beauty bereft of sentient thought. Conversely, he could incinerate the artifact, ensuring no menacing spore could endure, safeguarding the frail thread of human existence amidst a scorched and inhospitable world—an imposing decision to grapple with amid the desolation.",
+    "weight": 525,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/ForgottenLaboratory.webp",
+    "delay": 80,
+    "musicPath": "Myuu - Hold On.mp3",
+    "musicCredits": "Myuu - Hold On"
+  },
+  {
+    "text": "Kael's ultimate decision was to claim a fragment of Eden's Embrace and obliterate the remainder, driven by the hope that someday, somewhere, someone might unlock its power without yielding to the dire consequences. The road ahead stretched treacherous, with the weight of the world resting solely upon his shoulders. As his muscle car roared into the desert once more, hope ignited like a distant star on the solitary horizon—a lone sentinel against the relentless wasteland.",
+    "weight": 550,
+    "style": "long-text",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/FleeingTheCity.webp",
+    "delay": 80,
+    "musicPath": "Jaxius - Synthwave Retrowave.mp3",
+    "musicCredits": "Jaxius - Synthwave Retrowave"
+  },
+  {
+    "text": "The end",
+    "weight": 50,
+    "style": "one-word",
+    "backgroundPath": "/images/backgrounds/stories/postapo/DustAndRedemption/FleeingTheCity.webp",
+    "delay": 1,
+    "musicPath": "Jaxius - Synthwave Retrowave.mp3",
+    "musicCredits": "Jaxius - Synthwave Retrowave"
+  }
+]

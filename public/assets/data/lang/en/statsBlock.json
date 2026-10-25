@@ -1,0 +1,73 @@
+[
+  {
+    "text": "Since the beginning of this game, you clicked {clickNumber} times on the main button!",
+    "weight": 100,
+    "style": "small-paragraph",
+	  "placeholders": {
+	    "{clickNumber}": "clickNumber"
+	  }
+  },
+  {
+    "text": "Since the beginning of this game, {autoClickNumber} auto-clicks has been triggered!",
+    "weight": 100,
+    "style": "small-paragraph",
+	  "placeholders": {
+	    "{autoClickNumber}": "autoClickNumber"
+	  }
+  },
+  {
+    "text": "Since the beginning of this game, you performed {criticalHits} critical clicks!",
+    "weight": 100,
+    "style": "small-paragraph",
+	  "placeholders": {
+	    "{criticalHits}": "criticalHits"
+	  }
+  },
+  {
+    "text": "Since the beginning of this game, {autoCriticalHits} critical auto-clicks happened!",
+    "weight": 100,
+    "style": "small-paragraph",
+	  "placeholders": {
+	    "{autoCriticalHits}": "autoCriticalHits"
+	  }
+  },
+  {
+    "text": "Since the beginning of this game, you spent {moneySpent} money on upgrades and stuff!",
+    "weight": 100,
+    "style": "small-paragraph",
+	  "placeholders": {
+	    "{moneySpent}": "moneySpent"
+	  }
+  },
+  {
+    "text": "You spent {inGameTime} playing this!",
+    "weight": 100,
+    "style": "small-paragraph",
+	  "placeholders": {
+	    "{inGameTime}": "inGameTime"
+	  }
+  },
+  {
+    "text": "At your best, you performed {maxClicksSecond} clicks in one single second!",
+    "weight": 100,
+    "style": "small-paragraph",
+	  "placeholders": {
+	    "{maxClicksSecond}": "maxClicksSecond"
+	  }
+  },
+  {
+    "text": "You gain money depending on your level, not your power!",
+    "weight": 100,
+    "style": "small-paragraph"
+  },
+  {
+    "text": "You gain experience depending on your power, not your level!",
+    "weight": 100,
+    "style": "small-paragraph"
+  },
+  {
+    "text": "Critical Hits always increase both your money and your experience gain!",
+    "weight": 100,
+    "style": "small-paragraph"
+  }
+]

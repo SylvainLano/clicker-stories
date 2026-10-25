@@ -1,0 +1,62 @@
+# Builds the complete game and publishes it to GitHub Pages (Settings > Pages > Source: "GitHub Actions").
+# The complete game also needs assets that can't be redistributed from this repository (see CREDITS.md);
+# they come from a private repository, named by the ASSETS_REPO variable ("owner/name") and read with the
+# ASSETS_REPO_TOKEN secret (fine-grained token, "Contents: Read-only" on that repository only).
+# Nothing is committed anywhere: the built site goes straight to Pages. Started by hand only.
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: clicker-stories
+
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.ASSETS_REPO }}
+          token: ${{ secrets.ASSETS_REPO_TOKEN }}
+          path: extras
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: clicker-stories/package-lock.json
+
+      - name: Install dependencies
+        working-directory: clicker-stories
+        run: npm ci
+
+      - name: Check this repository's assets
+        working-directory: extras
+        run: npm run check-public
+
+      - name: Build
+        working-directory: extras
+        run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: extras/dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,178 @@
+[
+  {
+    "trigger": "storyBlockScienceFantasy1-1",
+    "text": "In the story \"The Nexus Chronicles\", what is the name of the distant realm where the events take place?",
+      "answers": {
+	    "right": "Veridora",
+	    "wrong1": "Verticea",
+	    "wrong2": "Verysorry",
+	    "wrong3": "Verdana"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/sciencefantasy/TheNexusChronicles/TheNexusChronicles.webp",
+    "delay": 5,
+    "musicPath": "Alexander Nakarada - Adventure.mp3",
+    "musicCredits": "Alexander Nakarada - Adventure",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockScienceFantasy1-2",
+    "text": "In the beginning of the story \"The Nexus Chronicles\", who knows about the Nexus?",
+      "answers": {
+	    "right": "A few seers",
+	    "wrong1": "Travelers",
+	    "wrong2": "A sorceress",
+	    "wrong3": "Inhabitants"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/sciencefantasy/TheNexusChronicles/TheNexusChronicles2.webp",
+    "delay": 5,
+    "musicPath": "Whitesand - Story of the Wind.mp3",
+    "musicCredits": "Whitesand - Story of the Wind",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockScienceFantasy1-3",
+    "text": "In the story \"The Nexus Chronicles\", what is the name of the sorceress?",
+      "answers": {
+	    "right": "Lyra",
+	    "wrong1": "Lily",
+	    "wrong2": "Lydia",
+	    "wrong3": "Laura"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/sciencefantasy/TheNexusChronicles/LyraAndTheScroll.webp",
+    "delay": 5,
+    "musicPath": "Kevin MacLeod - Virtutes Instrumenti.mp3",
+    "musicCredits": "Kevin MacLeod - Virtutes Instrumenti",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockScienceFantasy1-4",
+    "text": "In the story \"The Nexus Chronicles\", what are the names of the companions of Lyra?",
+      "answers": {
+	    "right": "Corin and Sylas",
+	    "wrong1": "Dorin and Midas",
+	    "wrong2": "Corin and Fileas",
+	    "wrong3": "Huggin and Sylvas"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/sciencefantasy/TheNexusChronicles/TheTrio.webp",
+    "delay": 1,
+    "musicPath": "Scott Buckley - Helios.mp3",
+    "musicCredits": "Scott Buckley - Helios",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockScienceFantasy1-5",
+    "text": "In the story \"The Nexus Chronicles\", what is unpredictable in the Nexus Realm?",
+      "answers": {
+	    "right": "Landscape shifting",
+	    "wrong1": "Weather turning",
+	    "wrong2": "Mountains growing",
+	    "wrong3": "Heavens falling"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/sciencefantasy/TheNexusChronicles/TheNexusRealm.webp",
+    "delay": 1,
+    "musicPath": "Scott Buckley - Helios.mp3",
+    "musicCredits": "Scott Buckley - Helios",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockScienceFantasy1-6",
+    "text": "In the story \"The Nexus Chronicles\", what does the merging of the two worlds has a profound effect on?",
+      "answers": {
+	    "right": "The magic",
+	    "wrong1": "The landscape",
+	    "wrong2": "The sanity",
+	    "wrong3": "The health"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/sciencefantasy/TheNexusChronicles/TheHeartOfTheNexus.webp",
+    "delay": 1,
+    "musicPath": "Alexandr Zhelanov - Dark Quest.mp3",
+    "musicCredits": "Alexandr Zhelanov - Dark Quest",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockScienceFantasy1-7",
+    "text": "In the story \"The Nexus Chronicles\", who craved the Nexus Power?",
+      "answers": {
+	    "right": "The Shadow Council",
+	    "wrong1": "The Magic Council",
+	    "wrong2": "The Silent Order",
+	    "wrong3": "The Dark Gathering"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/sciencefantasy/TheNexusChronicles/TheShadowCouncil.webp",
+    "delay": 1,
+    "musicPath": "Karl Casey @ White Bat Audio - Interdimensional Horrors.mp3",
+    "musicCredits": "Karl Casey @ White Bat Audio - Interdimensional Horrors",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockScienceFantasy1-8",
+    "text": "In the story \"The Nexus Chronicles\", which character had to die to fulfill the prophecy?",
+      "answers": {
+	    "right": "None of them",
+	    "wrong1": "Corin the swordman",
+	    "wrong2": "Sylas the inventor",
+	    "wrong3": "Lyra herself"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/sciencefantasy/TheNexusChronicles/LyraFacingAnEvilCreature.webp",
+    "delay": 1,
+    "musicPath": "Daniele Garuglieri - Tension RMK.mp3",
+    "musicCredits": "Daniele Garuglieri - Tension RMK",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockScienceFantasy1-9",
+    "text": "In the story \"The Nexus Chronicles\", who has dark ambitions?",
+      "answers": {
+	    "right": "Malvora",
+	    "wrong1": "Malevola",
+	    "wrong2": "Maldemora",
+	    "wrong3": "Maldora"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/sciencefantasy/TheNexusChronicles/LyraUnleashed.webp",
+    "delay": 1,
+    "musicPath": "Makai Symphony - Endless Storm.mp3",
+    "musicCredits": "Makai Symphony - Endless Storm",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockScienceFantasy1-10",
+    "text": "In the end of the story \"The Nexus Chronicles\", the Nexus is finally?",
+      "answers": {
+	    "right": "Sealed",
+	    "wrong1": "Destroyed",
+	    "wrong2": "Merged",
+	    "wrong3": "Expelled"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/sciencefantasy/TheNexusChronicles/TheTriumphOfLyra.webp",
+    "delay": 1,
+    "musicPath": "Steffen Daum - Awakening.mp3",
+    "musicCredits": "Steffen Daum - Awakening",
+    "weight": 500
+  },
+  {
+    "trigger": "storyBlockScienceFantasy1-11",
+    "text": "In the end of the story, what place has The Nexus Chronicles in Veridora's history'?",
+      "answers": {
+	    "right": "A cherished part",
+	    "wrong1": "None",
+	    "wrong2": "A reminder",
+	    "wrong3": "A cursed part"
+	  },
+    "style": "small-paragraph",
+    "backgroundPath": "/images/backgrounds/stories/sciencefantasy/TheNexusChronicles/PeaceToVeridora.webp",
+    "delay": 1,
+    "musicPath": "Steffen Daum - Awakening.mp3",
+    "musicCredits": "Steffen Daum - Awakening",
+    "weight": 500
+  }
+]

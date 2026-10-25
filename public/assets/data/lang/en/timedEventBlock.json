@@ -1,0 +1,72 @@
+[
+  {
+    "text": "Finish this charger before the timer goes off to get {reward} extra money!",
+    "weight": 300,
+    "style": "small-paragraph",
+    "delay": 25,
+    "trigger": "money",
+    "type": "click",
+	  "placeholders": {
+	    "{reward}": "reward"
+	  }
+  },
+  {
+    "text": "Finish this charger before the timer goes off to get instantly {reward} experience!",
+    "weight": 400,
+    "style": "small-paragraph",
+    "delay": 23,
+    "trigger": "experience",
+    "type": "click",
+	  "placeholders": {
+	    "{reward}": "reward"
+	  }
+  },
+  {
+    "text": "Perform {number} critical hits before the timer goes off to get {reward} free power!",
+    "weight": 5000,
+    "style": "small-paragraph",
+    "delay": 20,
+    "trigger": "power",
+    "type": "critical",
+    "number": 10,
+	  "placeholders": {
+	    "{reward}": "reward"
+	  }
+  },
+  {
+    "text": "Click when button is green and reach a score of {number} before the timer goes off to get {reward} free critical!",
+    "weight": 5000,
+    "style": "small-paragraph",
+    "delay": 25,
+    "trigger": "critical",
+    "type": "redgreen",
+    "number": 100,
+	  "placeholders": {
+	    "{reward}": "reward"
+	  }
+  },
+  {
+    "text": "Click when button is green and reach a score of {number} before the timer goes off to increase your critical power by {reward}!",
+    "weight": 5000,
+    "style": "small-paragraph",
+    "delay": 25,
+    "trigger": "criticalPower",
+    "type": "redgreen",
+    "number": 100,
+	  "placeholders": {
+	    "{reward}": "reward"
+	  }
+  },
+  {
+    "text": "Miss {number} hits before the timer goes off to get {reward} free focus!",
+    "weight": 5000,
+    "style": "small-paragraph",
+    "delay": 20,
+    "trigger": "focus",
+    "type": "miss",
+    "number": 15,
+	  "placeholders": {
+	    "{reward}": "reward"
+	  }
+  }
+]

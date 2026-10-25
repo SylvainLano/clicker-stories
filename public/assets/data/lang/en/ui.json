@@ -1,0 +1,70 @@
+{
+  "main": {
+    "title": "Clicker Stories"
+  },
+  "statusLabel": {
+    "loaded": "Game loaded successfully.",
+    "saved": "Game saved successfully."
+  },
+  "caracteristics": {
+    "power": "Power",
+    "focus": "Focus",
+    "critical": "Critical",
+    "fruits": "Fruits",
+    "moneyGain": "Money Gain",
+    "expGain": "Exp Gain",
+    "storyBonus": "Story Bonus"
+  },
+  "buttons": {
+    "main": "Click here!",
+    "cost": "Cost ",
+    "unlockAutoclick": "Unlock Auto",
+    "unlockCritical": "Unlock Crits",
+    "unlockFruit": "Unlock Fruits",
+    "unlockStoryBonus": "Unlock Bonuses",
+    "autoDelay": "AutoDelay ",
+    "quitGame": "Quit Game"
+  },
+  "buffs": {
+    "expGain": "Exp x",
+    "moneyGain": "Money x",
+    "criticalBoth": "All Crits x",
+    "storyChance": "Stories ++",
+    "progressCircle": "Charge ++",
+    "eventChance": "Events ++",
+    "fullFocus": "No Miss",
+    "discount": "Discount",
+    "fruitFactor": "Fruits x",
+    "quizzChance": "Quizzes ++"
+  },
+  "labels": {
+    "score": "Score: ",
+    "level": "Level: ",
+    "money": "Money: "
+  },
+  "events": {
+    "took": " It took you ",
+    "toclick": " to click on the button and you gained ",
+    "lose": "Maybe next time you'll have more luck!",
+    "emptyChest": "Bad luck, you chose the wrong chest!",
+    "rightChest": "You choose the chest containing ",
+    "goldenChest": "The content of this chest increased your ",
+    "by": " by ",
+    "fruitsChest": "This chest was full of fruits!",
+    "blackChest": "By opening a Black Chest,\nyou won",
+    "endBlackChest": "but got cursed!\nYou should not leave until the curse is over..."
+  },
+  "menus": {
+    "options": "Options",
+    "language": "Languages: "
+  },
+  "achievements": {
+    "newStory": "You started a new story!",
+    "endStory": "You completed the story!",
+    "endQuizz": "You completed all the Story Quizzes!"
+  },
+  "quizz": {
+    "rightAnswer": "Your answer was right and you gained",
+    "wrongAnswer": "Your answer was wrong!"
+  }
+}
