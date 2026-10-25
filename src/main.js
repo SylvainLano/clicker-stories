@@ -1,23 +1,28 @@
 import './style.css'
+import './ui/game.css'
 import installExtensions from '@extensions'
-import { assetUrl, loadManifest } from './assets.js'
+import { assetUrl, listAssets, loadManifest, manifest } from './assets.js'
+import { createMusicPlayer, createSoundPlayer } from './audio.js'
+import { LANGUAGES, loadData, loadLocalized, loadTranslator } from './data.js'
 import { loadFonts } from './fonts.js'
+import { createGame } from './game/game.js'
+import { createState, loadState } from './game/state.js'
 import { createHooks } from './hooks.js'
+import { defineImageVariables } from './images.js'
+import { element } from './ui/dom.js'
+import { createEffects } from './ui/effects.js'
+import { createHud } from './ui/hud.js'
+import { createMenuPane } from './ui/menus.js'
 
 const TITLE_COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
+const AMBIENT_MUSIC = { file: 'Dar Golan Free Night Nature Soundscape.mp3', credits: 'Dar Golan - Free Night Nature Soundscape' }
+const MENU_SOUNDS = { open: '/sound/effects/Menu_In.wav', close: '/sound/effects/Menu_Out.wav' }
 
 const stage = document.getElementById('stage')
 const hooks = createHooks()
 
-function element(tag, className, text) {
-  const node = document.createElement(tag)
-  node.className = className
-  if (text) node.textContent = text
-  return node
-}
-
 // Browsers only allow sound after a user gesture, so the game starts on a click.
-function showStartScreen() {
+function showStartScreen(onStart) {
   const screen = element('div', 'start-screen')
   screen.style.backgroundImage = `url("${assetUrl('/images/backgrounds/loader.webp')}")`
   const title = element('h1', 'start-title', 'Clicker Stories')
@@ -36,27 +41,151 @@ function showStartScreen() {
     () => {
       clearInterval(colorTimer)
       screen.remove()
-      startGame()
+      onStart()
     },
     { once: true },
   )
 }
 
-function startGame() {
+async function startGame() {
+  const savedState = loadState()
+  const state = savedState ?? createState()
+  let translate = await loadTranslator(state.lang)
+  const t = (category, key) => translate(category, key)
+
+  const [{ colors }, achievements, storyBonuses] = await Promise.all([
+    loadData('progressbar_colors.json'),
+    loadLocalized(state.lang, 'achievements.json'),
+    loadLocalized(state.lang, 'storyBonuses.json'),
+  ])
+  for (const bonus of storyBonuses) {
+    bonus.unlocked = state.finishedQuizzIds.has(bonus.id)
+    bonus.activated = state.activatedStoryBonus.has(bonus.id)
+  }
+
+  let musicOn = true
+  const sounds = createSoundPlayer()
+  const music = createMusicPlayer({ isMuted: () => !musicOn })
+  const menuMusic = createMusicPlayer({ isMuted: () => !musicOn })
+  const setCredits = (text) => hud.setCredits(hooks.transform('creditsText', text))
+
   stage.style.backgroundImage = `url("${assetUrl('/images/backgrounds/night_sky.webp')}")`
-  stage.style.cursor = `url("${assetUrl('/images/cursors/cursor_level_1.png')}"), auto`
 
-  const music = new Audio(assetUrl('/sound/background/Dar Golan Free Night Nature Soundscape.mp3'))
-  music.loop = true
-  music.play()
+  let game
+  const hud = createHud(stage, {
+    click: (event) => game.onMainButtonClick(event),
+    upgrade: (key) => game.buy(key),
+    openStories: () => {},
+    openStoryBonus: () => {},
+    openAchievements: () => openMenu(achievementsMenu, fillAchievements),
+    openOptions: () => openMenu(optionsMenu, fillOptions),
+    toggleSfx() {
+      sounds.enabled = !sounds.enabled
+      hud.soundButtons.sfx.setStyle(sounds.enabled ? 'sound-button' : 'nosound-button')
+    },
+    toggleMusic() {
+      musicOn = !musicOn
+      hud.soundButtons.music.setStyle(musicOn ? 'music-button' : 'nomusic-button')
+      music.refreshVolume()
+      menuMusic.refreshVolume()
+    },
+  })
+  const effects = createEffects(hud.effects, { onFruitCaught: (...args) => game.onFruitCaught(...args) })
+  game = createGame({ stage, state, hud, effects, sounds, music, hooks, t, colors, achievements, storyBonuses })
 
-  hooks.emit('start')
+  // ---------- Menus ----------
+
+  // Opening a menu pauses the game: no auto-clicks, the menu has its own music.
+  function closeMenu() {
+    game.restartAutoClick()
+    music.togglePause()
+    menuMusic.stop()
+    sounds.play(MENU_SOUNDS.close, 0.5)
+  }
+
+  function openMenu(menu, fill) {
+    fill()
+    game.stopAutoClick()
+    music.togglePause()
+    menuMusic.start(AMBIENT_MUSIC.file, 1)
+    setCredits(AMBIENT_MUSIC.credits)
+    menu.open()
+    sounds.play(MENU_SOUNDS.open, 0.5)
+  }
+
+  const achievementsMenu = createMenuPane(stage, { panelClass: 'planks-white', onClose: closeMenu })
+  const optionsMenu = createMenuPane(stage, { panelClass: 'planks-white', onClose: closeMenu })
+
+  function fillAchievements() {
+    // Unlocked first; hidden achievements only show once unlocked.
+    const shown = achievements
+      .filter((achievement) => state.unlockedAchievementIds.has(achievement.id) || !achievement.hidden)
+      .sort((a, b) => state.unlockedAchievementIds.has(b.id) - state.unlockedAchievementIds.has(a.id))
+    const grid = element('div', 'achievement-grid')
+    for (const achievement of shown) {
+      const unlocked = state.unlockedAchievementIds.has(achievement.id)
+      const icon = element('img')
+      icon.src = assetUrl(unlocked ? achievement.image : '/images/buttons/achievement-icon-locked.webp')
+      icon.alt = ''
+      grid.append(
+        element(
+          'div',
+          `achievement-block${unlocked ? '' : ' locked'}`,
+          '',
+          icon,
+          element(
+            'div',
+            '',
+            '',
+            element('div', unlocked ? 'achievement-title' : 'achievement-title-locked', achievement.name),
+            element('div', unlocked ? 'achievement-description' : 'achievement-description-locked', achievement.description),
+          ),
+        ),
+      )
+    }
+    achievementsMenu.box.replaceChildren(grid)
+  }
+
+  function fillOptions() {
+    const languageRow = element('div', 'options-row', '', element('span', '', t('menus', 'language')))
+    for (const language of LANGUAGES) {
+      const flag = element('img')
+      flag.src = assetUrl(`/images/buttons/flags/${language}.webp`)
+      flag.alt = language
+      const button = element('button', `lang-button${language === state.lang ? ' current' : ''}`, '', flag)
+      button.addEventListener('click', () => changeLanguage(language))
+      languageRow.append(button)
+    }
+    optionsMenu.box.replaceChildren(element('div', 'options-row', '', element('span', '', t('menus', 'options'))), languageRow)
+  }
+
+  async function changeLanguage(language) {
+    if (language === state.lang) return
+    state.lang = language
+    translate = await loadTranslator(language)
+    hud.mainButton.textContent = t('buttons', 'main')
+    game.updateLabels()
+    game.updateButtons()
+    fillOptions()
+  }
+
+  // ---------- Start ----------
+
+  hud.mainButton.textContent = t('buttons', 'main')
+  music.start(AMBIENT_MUSIC.file, 1)
+  setCredits(AMBIENT_MUSIC.credits)
+  if (savedState) hud.showSaveStatus(t('statusLabel', 'loaded'))
+  game.start({ gunshotSounds: listAssets('sound/effects/gunshot/') })
+  hooks.emit('start', { state, game, hud, effects, sounds, music, stage, t })
+  // Development only: inspect or tweak the game from the browser console.
+  if (import.meta.env.DEV) window.clickerStories = { state, game, effects }
 }
 
 async function main() {
   await Promise.all([loadManifest(), loadFonts()])
+  defineImageVariables(manifest())
   await installExtensions({ hooks, assetUrl })
-  showStartScreen()
+  showStartScreen(startGame)
 }
 
 main()

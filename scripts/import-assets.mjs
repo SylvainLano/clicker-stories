@@ -39,6 +39,8 @@ const UNUSED_EXTENSIONS_IN = { 'sound/background/': ['.wav'] } // uncompressed m
 // Images heavier than this are photos/paintings: lossy WebP, resized. Lighter ones (UI, pixel art): lossless.
 const LOSSY_THRESHOLD = 200 * 1024
 const MAX_BACKGROUND_SIZE = { width: 1600, height: 1200 }
+// Browsers ignore cursor images above 128px; JavaFX scaled them down to the system size, 32px on Windows.
+const CURSOR_SIZE = 32
 
 function parseArgs(argv) {
   const args = { source: DEFAULT_SOURCE, excludeFrom: null, publicFrom: null, otherTarget: null }
@@ -111,6 +113,8 @@ async function importFile(from, to) {
     await writeFile(to, json)
   } else if (to.endsWith('.webp')) {
     await convertImage(from, to)
+  } else if (to.replaceAll('\\', '/').includes('/images/cursors/')) {
+    await sharp(from).resize(CURSOR_SIZE, CURSOR_SIZE).png().toFile(to)
   } else {
     await copyFile(from, to)
   }

@@ -1,12 +1,14 @@
 // Asset paths look like "/images/backgrounds/night_sky.webp", relative to public/assets.
 const ASSETS_ROOT = `${import.meta.env.BASE_URL}assets`
 
-let manifest = []
+let paths = []
 
 export async function loadManifest() {
   const response = await fetch(assetUrl('/manifest.json'))
-  manifest = await response.json()
+  paths = await response.json()
 }
+
+export const manifest = () => paths
 
 export function assetUrl(path) {
   return ASSETS_ROOT + path.split('/').map(encodeURIComponent).join('/')
@@ -15,7 +17,7 @@ export function assetUrl(path) {
 // Lists the asset paths inside a folder, optionally filtered by extension (".wav", ".json"...).
 export function listAssets(folder, extension) {
   const prefix = `/${folder.replace(/^\/|\/$/g, '')}/`
-  return manifest.filter(
+  return paths.filter(
     (path) => path.startsWith(prefix) && (!extension || path.toLowerCase().endsWith(extension.toLowerCase())),
   )
 }

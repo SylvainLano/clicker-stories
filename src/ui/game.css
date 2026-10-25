@@ -1,0 +1,546 @@
+/* Game screen, ported from the Java version's JavaFX stylesheets. Images come from CSS variables (src/images.js). */
+
+#stage {
+  --accent: #e852a1;
+  --label-color: #fff;
+  --status-color: #fff;
+  --credits-color: grey;
+  --overlay: rgba(50, 50, 50, 0.7);
+  font-family: system-ui, sans-serif;
+}
+
+:where(#stage button) {
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  font: inherit;
+  color: inherit;
+  cursor: inherit;
+}
+
+.hud,
+.status-bar,
+.backgrounds,
+.effects {
+  position: absolute;
+  inset: 0;
+}
+
+.effects {
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ---------- Main controls (bottom center) ---------- */
+
+.main-controls {
+  position: absolute;
+  left: 150px;
+  right: 150px;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-button {
+  --button-normal: var(--img-buttons-click-button-default-normal);
+  --button-hover: var(--img-buttons-click-button-default-hover);
+  --button-clicked: var(--img-buttons-click-button-default-clicked);
+  width: 144px;
+  height: 48px;
+  padding: 0 0 5px;
+  background: var(--button-normal) center / cover no-repeat;
+  font-family: 'Alagard', serif;
+  font-size: 18px;
+  color: #000;
+}
+
+.custom-button:hover {
+  background-image: var(--button-hover);
+}
+
+.custom-button:active,
+.custom-button.pressed {
+  background-image: var(--button-clicked);
+  padding: 5px 0 0;
+}
+
+/* Main button skins, chosen by the current story. */
+.custom-button-uplifting {
+  --button-normal: var(--img-buttons-click-button-uplifting-normal);
+  --button-hover: var(--img-buttons-click-button-uplifting-hover);
+  --button-clicked: var(--img-buttons-click-button-uplifting-clicked);
+}
+.custom-button-mystery {
+  --button-normal: var(--img-buttons-click-button-mystery-normal);
+  --button-hover: var(--img-buttons-click-button-mystery-hover);
+  --button-clicked: var(--img-buttons-click-button-mystery-clicked);
+}
+.custom-button-science-fantasy {
+  --button-normal: var(--img-buttons-click-button-science-fantasy-normal);
+  --button-hover: var(--img-buttons-click-button-science-fantasy-hover);
+  --button-clicked: var(--img-buttons-click-button-science-fantasy-clicked);
+}
+.custom-button-steampunk {
+  --button-normal: var(--img-buttons-click-button-golden-normal);
+  --button-hover: var(--img-buttons-click-button-golden-hover);
+  --button-clicked: var(--img-buttons-click-button-golden-clicked);
+}
+.custom-button-postapo {
+  --button-normal: var(--img-buttons-click-button-postapo-normal);
+  --button-hover: var(--img-buttons-click-button-postapo-hover);
+  --button-clicked: var(--img-buttons-click-button-postapo-clicked);
+}
+.custom-button-go {
+  --button-normal: var(--img-buttons-click-button-go-normal);
+  --button-hover: var(--img-buttons-click-button-go-hover);
+  --button-clicked: var(--img-buttons-click-button-go-clicked);
+}
+.custom-button-stop {
+  --button-normal: var(--img-buttons-click-button-stop-normal);
+  --button-hover: var(--img-buttons-click-button-stop-hover);
+  --button-clicked: var(--img-buttons-click-button-stop-clicked);
+}
+
+.main-labels {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.main-label {
+  font-family: 'Alagard', serif;
+  font-size: 14px;
+  color: var(--label-color);
+  white-space: pre;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 12px;
+  border-radius: 3px;
+  background: linear-gradient(#1a1a1a, #3a3a3a);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0;
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 60%), var(--accent);
+}
+
+/* ---------- Upgrade buttons (bottom corners) ---------- */
+
+.upgrades {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.upgrades-left {
+  left: 10px;
+}
+
+.upgrades-right {
+  right: 10px;
+}
+
+.squared-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 132px;
+  height: 44px;
+  padding: 0 0 6px;
+  background: var(--img-buttons-squared-button-default-normal) center / cover no-repeat;
+  font-family: 'Early GameBoy', monospace;
+  font-size: 8px;
+  line-height: 1.4;
+  color: #444;
+}
+
+.squared-button:hover:enabled {
+  background-image: var(--img-buttons-squared-button-default-hover);
+}
+
+.squared-button:active:enabled {
+  background-image: var(--img-buttons-squared-button-default-clicked);
+  padding: 4px 0 0;
+}
+
+.squared-button:disabled {
+  opacity: 0.5;
+}
+
+/* ---------- Icon buttons (top corners) ---------- */
+
+.icon-buttons {
+  position: absolute;
+  top: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.icon-buttons-left {
+  left: 10px;
+}
+
+.icon-buttons-right {
+  right: 10px;
+}
+
+.icon-button {
+  width: 16px;
+  height: 16px;
+  background: var(--icon) center / contain no-repeat;
+  filter: drop-shadow(0 1px 1.5px rgba(255, 255, 255, 0.5));
+}
+
+.icon-button:hover {
+  background-image: var(--icon-hover);
+}
+
+.options-button {
+  --icon: var(--img-buttons-Icon_Large_Menu_Grey);
+  --icon-hover: var(--img-buttons-Icon_Large_Menu_Blank);
+}
+.music-button {
+  --icon: var(--img-buttons-Icon_Large_Music_Grey);
+  --icon-hover: var(--img-buttons-Icon_Large_Music_Blank);
+}
+.nomusic-button {
+  --icon: var(--img-buttons-Icon_Large_MusicOff_Grey);
+  --icon-hover: var(--img-buttons-Icon_Large_MusicOff_Blank);
+}
+.sound-button {
+  --icon: var(--img-buttons-Icon_Large_Audio_Grey);
+  --icon-hover: var(--img-buttons-Icon_Large_Audio_Blank);
+}
+.nosound-button {
+  --icon: var(--img-buttons-Icon_Large_AudioOff_Grey);
+  --icon-hover: var(--img-buttons-Icon_Large_AudioOff_Blank);
+}
+.story-button {
+  --icon: var(--img-buttons-story-icon);
+  --icon-hover: var(--img-buttons-story-icon-hover);
+  height: 20px;
+  background-size: cover;
+}
+.achievement-button {
+  --icon: var(--img-buttons-achievement-icon);
+  --icon-hover: var(--img-buttons-achievement-icon-hover);
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+}
+.story-bonus-button {
+  --icon: var(--img-buttons-story-bonus-icon);
+  --icon-hover: var(--img-buttons-story-bonus-icon-hover);
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+}
+
+/* ---------- Active temporary buffs (top left) ---------- */
+
+.buffs {
+  position: absolute;
+  top: 35px;
+  left: 10px;
+  pointer-events: none;
+}
+
+/* ---------- Story text (center) ---------- */
+
+.story {
+  position: absolute;
+  top: 0;
+  left: 150px;
+  right: 150px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+/* ---------- Status bar (bottom) ---------- */
+
+.status-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 5px;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.save-status {
+  color: var(--status-color);
+  opacity: 0;
+}
+
+.save-status.fading {
+  animation: fade-out 3s linear;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.credits {
+  color: var(--credits-color);
+}
+
+/* ---------- Flying effects ---------- */
+
+.digit {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: 'AnotherTypeWriter', monospace;
+  font-size: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+  transform-origin: center;
+  will-change: transform, opacity;
+  -webkit-text-stroke: 0.5px;
+  paint-order: stroke fill;
+}
+
+.digit.score-digit {
+  color: maroon;
+  -webkit-text-stroke-color: pink;
+}
+.digit.critical-digit {
+  color: red;
+  -webkit-text-stroke-color: pink;
+}
+.digit.artificial-digit {
+  color: darkblue;
+  -webkit-text-stroke-color: aqua;
+}
+.digit.autocritical-digit {
+  color: blue;
+  -webkit-text-stroke-color: aqua;
+}
+.digit.miss {
+  color: grey;
+  -webkit-text-stroke-color: white;
+}
+.digit.levelup-digit,
+.digit.reward {
+  background: linear-gradient(to top, #ff4444, #ffff44);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke-color: white;
+}
+.digit.reward {
+  -webkit-text-stroke-color: pink;
+}
+
+.particle {
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+
+.fruit {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  pointer-events: auto;
+}
+
+/* ---------- Menus ---------- */
+
+.menu-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay);
+}
+
+.menu-overlay[hidden] {
+  display: none;
+}
+
+.menu-panel {
+  position: absolute;
+  top: 100px;
+  bottom: 100px;
+  left: 133.33px;
+  right: 133.33px;
+  overflow-y: auto;
+  background: center / 100% 100% no-repeat;
+}
+
+.menu-box {
+  color: #000;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 0;
+}
+
+.close-button {
+  position: absolute;
+  top: 105px;
+  right: 138.33px;
+  width: 12px;
+  height: 12px;
+  background: var(--img-buttons-close-button) center / 100% 100% no-repeat;
+}
+
+.close-button:hover {
+  background-image: var(--img-buttons-close-button-hover);
+}
+
+.planks-white {
+  background-image: var(--img-backgrounds-planks-white);
+}
+
+.planks {
+  background-image: var(--img-backgrounds-planks);
+}
+
+.options-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 180px;
+  height: 45px;
+}
+
+.lang-button {
+  width: 16px;
+  height: 12px;
+}
+
+.lang-button img {
+  display: block;
+  width: 16px;
+  height: 12px;
+}
+
+.lang-button:not(.current) img {
+  filter: brightness(1.7) saturate(0.6);
+}
+
+.lang-button:hover img {
+  filter: none;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 240px);
+  justify-content: center;
+  gap: 5px;
+}
+
+.achievement-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 60px;
+  padding: 5px 15px;
+  box-sizing: border-box;
+  background: var(--img-backgrounds-achievement-background) center / 100% 100% no-repeat;
+}
+
+.achievement-block.locked {
+  background-image: var(--img-backgrounds-achievement-background-grey);
+}
+
+.achievement-block img {
+  width: 32px;
+  height: 32px;
+  flex: none;
+}
+
+.achievement-title {
+  font-family: 'AnotherTypeWriter', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  color: maroon;
+}
+
+.achievement-title-locked {
+  font-family: 'AnotherTypeWriter', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  color: darkgrey;
+}
+
+.achievement-description {
+  font-family: 'AnotherTypeWriter', monospace;
+  font-size: 8px;
+  font-style: italic;
+  color: #000;
+}
+
+.achievement-description-locked {
+  font-family: 'AnotherTypeWriter', monospace;
+  font-size: 8px;
+  font-style: italic;
+  color: darkgrey;
+}
+
+/* ---------- Toasts ---------- */
+
+.toast {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 200px;
+  height: 50px;
+  padding: 10px;
+  box-sizing: border-box;
+  background: var(--img-backgrounds-achievement-background) center / 100% 100% no-repeat;
+  pointer-events: none;
+  transform: translateY(-50px);
+}
+
+.toast-right {
+  right: 5px;
+}
+
+.toast-left {
+  left: 5px;
+}
+
+.toast-icon {
+  width: 32px;
+  height: 32px;
+  flex: none;
+}
+
+.toast-texts {
+  width: 130px;
+}

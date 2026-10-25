@@ -24,14 +24,16 @@
     "quitGame": "Quitter"
   },
   "buffs": {
-    "expGain": "Exp x5",
-    "moneyGain": "Argent x5",
-    "criticalBoth": "Tous les Critiques x2",
+    "expGain": "Exp x",
+    "moneyGain": "Argent x",
+    "criticalBoth": "Critiques x",
     "storyChance": "Histoires ++",
-    "progressCircle": "Chargement x2",
+    "progressCircle": "Chargement ++",
     "eventChance": "Événements ++",
     "fullFocus": "Pas de Ratés",
-    "discount": "Remise"
+    "discount": "Remise",
+    "fruitFactor": "Fruits x",
+    "quizzChance": "Quiz ++"
   },
   "labels": {
     "score": "Score : ",
