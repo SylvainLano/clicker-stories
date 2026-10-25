@@ -56,10 +56,269 @@
     "hidden": false
   },
   {
+    "id": "hungry",
+    "name": "Hungry",
+    "description": "Unlocks by reaching level 18",
+    "image": "/images/achievements/hungry.webp",
+    "hidden": false
+  },
+  {
+    "id": "starving",
+    "name": "Starving",
+    "description": "Unlocks by reaching level 21",
+    "image": "/images/achievements/starving.webp",
+    "hidden": false
+  },
+  {
+    "id": "ravenous",
+    "name": "Ravenous",
+    "description": "Unlocks by reaching level 24",
+    "image": "/images/achievements/ravenous.webp",
+    "hidden": false
+  },
+  {
+    "id": "insatiable",
+    "name": "Insatiable",
+    "description": "Unlocks by reaching level 27",
+    "image": "/images/achievements/insatiable.webp",
+    "hidden": false
+  },
+  {
+    "id": "big_eater",
+    "name": "Big Eater",
+    "description": "Unlocks by reaching level 30",
+    "image": "/images/achievements/big_eater.webp",
+    "hidden": false
+  },
+  {
+    "id": "glutton",
+    "name": "Glutton",
+    "description": "Unlocks by reaching level 33",
+    "image": "/images/achievements/glutton.webp",
+    "hidden": false
+  },
+  {
+    "id": "bottomless_pit",
+    "name": "Bottomless Pit",
+    "description": "Unlocks by reaching level 36",
+    "image": "/images/achievements/bottomless_pit.webp",
+    "hidden": false
+  },
+  {
+    "id": "devourer",
+    "name": "Devourer",
+    "description": "Unlocks by reaching level 39",
+    "image": "/images/achievements/devourer.webp",
+    "hidden": false
+  },
+  {
+    "id": "food_coma",
+    "name": "Food Coma",
+    "description": "Unlocks by reaching level 42",
+    "image": "/images/achievements/food_coma.webp",
+    "hidden": false
+  },
+  {
+    "id": "feast_master",
+    "name": "Feast Master",
+    "description": "Unlocks by reaching level 45",
+    "image": "/images/achievements/feast_master.webp",
+    "hidden": false
+  },
+  {
+    "id": "eats_the_world",
+    "name": "Eats The World",
+    "description": "Unlocks by reaching level 48",
+    "image": "/images/achievements/eats_the_world.webp",
+    "hidden": false
+  },
+  {
     "id": "greedy",
     "name": "Greedy",
     "description": "Unlocks by focusing on money",
     "image": "/images/achievements/greedy.webp",
+    "hidden": true
+  },
+  {
+    "id": "first_fruit",
+    "name": "First Bite",
+    "description": "Unlocks by catching your first fruit",
+    "image": "/images/achievements/first_fruit.webp",
+    "hidden": false
+  },
+  {
+    "id": "some_fruits",
+    "name": "Fruit Salad",
+    "description": "Unlocks by catching 50 fruits",
+    "image": "/images/achievements/some_fruits.webp",
+    "hidden": false
+  },
+  {
+    "id": "plenty_of_fruits",
+    "name": "Fruit Basket",
+    "description": "Unlocks by catching 500 fruits",
+    "image": "/images/achievements/plenty_of_fruits.webp",
+    "hidden": false
+  },
+  {
+    "id": "too_much_fruits",
+    "name": "Vitamin Overdose",
+    "description": "Unlocks by catching 5,000 fruits",
+    "image": "/images/achievements/too_much_fruits.webp",
+    "hidden": false
+  },
+  {
+    "id": "all_fruits",
+    "name": "Homemade Jam",
+    "description": "Unlocks by catching every kind of fruit",
+    "image": "/images/achievements/all_fruits.webp",
+    "hidden": false
+  },
+  {
+    "id": "first_story_bonus",
+    "name": "Pearl of Wisdom",
+    "description": "Unlocks by getting your first story bonus",
+    "image": "/images/achievements/first_story_bonus.webp",
+    "hidden": false
+  },
+  {
+    "id": "five_story_bonus",
+    "name": "Opal Collection",
+    "description": "Unlocks by getting five story bonuses",
+    "image": "/images/achievements/five_story_bonus.webp",
+    "hidden": false
+  },
+  {
+    "id": "gold_coin",
+    "name": "Gold Coin",
+    "description": "Unlocks by spending 1B in total",
+    "image": "/images/achievements/gold_coin.webp",
+    "hidden": false
+  },
+  {
+    "id": "bronze_ring",
+    "name": "Sharpshooter",
+    "description": "Unlocks by landing 100 critical hits",
+    "image": "/images/achievements/bronze_ring.webp",
+    "hidden": false
+  },
+  {
+    "id": "silver_ring",
+    "name": "Deadeye",
+    "description": "Unlocks by landing 1,000 critical hits",
+    "image": "/images/achievements/silver_ring.webp",
+    "hidden": false
+  },
+  {
+    "id": "gold_ring",
+    "name": "Critical Master",
+    "description": "Unlocks by landing 10,000 critical hits",
+    "image": "/images/achievements/gold_ring.webp",
+    "hidden": false
+  },
+  {
+    "id": "green_ring",
+    "name": "Double Trouble",
+    "description": "Unlocks by landing your first double critical hit",
+    "image": "/images/achievements/green_ring.webp",
+    "hidden": false
+  },
+  {
+    "id": "special_ring",
+    "name": "Triple Threat",
+    "description": "Unlocks by landing your first triple critical hit",
+    "image": "/images/achievements/special_ring.webp",
+    "hidden": false
+  },
+  {
+    "id": "star_bronze",
+    "name": "First Victory",
+    "description": "Unlocks by winning your first event",
+    "image": "/images/achievements/star_bronze.webp",
+    "hidden": false
+  },
+  {
+    "id": "star_silver",
+    "name": "Challenger",
+    "description": "Unlocks by winning 10 events",
+    "image": "/images/achievements/star_silver.webp",
+    "hidden": false
+  },
+  {
+    "id": "star_gold",
+    "name": "Champion",
+    "description": "Unlocks by winning 50 events",
+    "image": "/images/achievements/star_gold.webp",
+    "hidden": false
+  },
+  {
+    "id": "star_special",
+    "name": "Legend",
+    "description": "Unlocks by winning 200 events",
+    "image": "/images/achievements/star_special.webp",
+    "hidden": false
+  },
+  {
+    "id": "small_letter",
+    "name": "Good Answer",
+    "description": "Unlocks by answering a quiz question right",
+    "image": "/images/achievements/small_letter.webp",
+    "hidden": false
+  },
+  {
+    "id": "nice_letter",
+    "name": "Know-It-All",
+    "description": "Unlocks by answering 25 quiz questions right",
+    "image": "/images/achievements/nice_letter.webp",
+    "hidden": false
+  },
+  {
+    "id": "love_letter",
+    "name": "Teacher's Pet",
+    "description": "Unlocks by finishing every quiz",
+    "image": "/images/achievements/love_letter.webp",
+    "hidden": false
+  },
+  {
+    "id": "small_egg",
+    "name": "Hatching",
+    "description": "Unlocks by clicking 10,000 times",
+    "image": "/images/achievements/small_egg.webp",
+    "hidden": false
+  },
+  {
+    "id": "big_egg",
+    "name": "Hard-Boiled",
+    "description": "Unlocks by clicking 1,000,000 times",
+    "image": "/images/achievements/big_egg.webp",
+    "hidden": false
+  },
+  {
+    "id": "candy",
+    "name": "Sugar Rush",
+    "description": "Unlocks by clicking 10 times in one second",
+    "image": "/images/achievements/candy.webp",
+    "hidden": false
+  },
+  {
+    "id": "marbles",
+    "name": "Lost My Marbles",
+    "description": "Unlocks by opening 10 empty chests",
+    "image": "/images/achievements/marbles.webp",
+    "hidden": true
+  },
+  {
+    "id": "only_luck",
+    "name": "Only Luck",
+    "description": "Unlocks by opening a golden chest",
+    "image": "/images/achievements/only_luck.webp",
+    "hidden": true
+  },
+  {
+    "id": "the_eye",
+    "name": "The Eye",
+    "description": "Unlocks by lifting a curse with a coconut",
+    "image": "/images/achievements/the_eye.webp",
     "hidden": true
   }
 ]

@@ -13,6 +13,7 @@ const SET_FIELDS = [
   'finishedQuizzIds',
   'unlockedAchievementIds',
   'activatedStoryBonus',
+  'caughtFruitKinds',
 ]
 
 export function createState() {
@@ -59,6 +60,8 @@ export function createState() {
     blackChests: 0,
     eventsWon: 0,
     eventsLost: 0,
+    highestCriticalTier: 0, // 1: single critical, 2: double...
+    cursesLifted: 0, // black chest curses lifted by a coconut
     // Story progress
     ...Object.fromEntries(SET_FIELDS.map((field) => [field, new Set()])),
   }

@@ -11,7 +11,7 @@ import {
   upgradeCosts,
   upgradeSteps,
 } from './formulas.js'
-import { addBuff, buffDiscount, buffMultipliers, expireBuffs, buffValue, comboFactor, FRUIT_BUFF_DURATION, FRUIT_BUFFS, fruitChance, LIMITS, pickFruit, SEEDS_EXTRA_TIME } from './buffs.js'
+import { addBuff, buffDiscount, buffMultipliers, expireBuffs, buffValue, comboFactor, FRUIT_BUFF_DURATION, FRUIT_BUFFS, FRUITS, fruitChance, LIMITS, pickFruit, SEEDS_EXTRA_TIME } from './buffs.js'
 import { clickGains, clickOutcome, clickStats, criticalPoints, criticalTiers } from './rules.js'
 import { saveState } from './state.js'
 
@@ -26,7 +26,7 @@ const REFRESH_INTERVAL = 0.5 // seconds between two refreshes of buttons, buffs 
 const MAX_TEXT_CLICKS = 8 // clicks per second that advance the story text, at most (auto-fire goes far beyond)
 const MAX_CLICK_PARTICLES = 5 // above this many clicks per second, clicks stop throwing particles
 
-// Achievement id -> unlock condition.
+// Achievement id -> unlock condition (one quizz per story bonus: all of them answered when as many as the bonuses).
 const ACHIEVEMENT_CONDITIONS = {
   adventure_begins: (state) => state.startedStoryIds.size > 0 || state.finishedStoryIds.size > 0,
   reach_your_goal: (state) => state.finishedStoryIds.size > 0,
@@ -36,11 +36,48 @@ const ACHIEVEMENT_CONDITIONS = {
   soft_spot_hit: (state) => state.level >= 9,
   little_craving: (state) => state.level >= 12,
   got_appetite: (state) => state.level >= 15,
+  hungry: (state) => state.level >= 18,
+  starving: (state) => state.level >= 21,
+  ravenous: (state) => state.level >= 24,
+  insatiable: (state) => state.level >= 27,
+  big_eater: (state) => state.level >= 30,
+  glutton: (state) => state.level >= 33,
+  bottomless_pit: (state) => state.level >= 36,
+  devourer: (state) => state.level >= 39,
+  food_coma: (state) => state.level >= 42,
+  feast_master: (state) => state.level >= 45,
+  eats_the_world: (state) => state.level >= 48,
   greedy: (state) =>
     state.moneyGain > 10 &&
     ['power', 'critical', 'criticalPower', 'experienceGain', 'autoClickingLevel', 'fruitFactor', 'focus'].every(
       (key) => state.moneyGain > state[key],
     ),
+  first_fruit: (state) => state.touchedFruits >= 1,
+  some_fruits: (state) => state.touchedFruits >= 50,
+  plenty_of_fruits: (state) => state.touchedFruits >= 500,
+  too_much_fruits: (state) => state.touchedFruits >= 5000,
+  all_fruits: (state) => FRUITS.every((fruit) => state.caughtFruitKinds.has(fruit)),
+  first_story_bonus: (state) => state.storyBonus >= 1,
+  five_story_bonus: (state) => state.storyBonus >= 5,
+  gold_coin: (state) => state.moneySpent >= 1e9,
+  bronze_ring: (state) => state.criticalHits + state.autoCriticalHits >= 100,
+  silver_ring: (state) => state.criticalHits + state.autoCriticalHits >= 1000,
+  gold_ring: (state) => state.criticalHits + state.autoCriticalHits >= 10000,
+  green_ring: (state) => state.highestCriticalTier >= 2,
+  special_ring: (state) => state.highestCriticalTier >= 3,
+  star_bronze: (state) => state.eventsWon >= 1,
+  star_silver: (state) => state.eventsWon >= 10,
+  star_gold: (state) => state.eventsWon >= 50,
+  star_special: (state) => state.eventsWon >= 200,
+  small_letter: (state) => state.goodAnswers >= 1,
+  nice_letter: (state) => state.goodAnswers >= 25,
+  love_letter: (state, { storyBonuses }) => state.finishedQuizzIds.size >= storyBonuses.length,
+  small_egg: (state) => state.clickNumber >= 10000,
+  big_egg: (state) => state.clickNumber >= 1000000,
+  candy: (state) => state.maxClicksSecond >= 10,
+  marbles: (state) => state.emptyChests >= 10,
+  only_luck: (state) => state.goldChests >= 1,
+  the_eye: (state) => state.cursesLifted >= 1,
 }
 
 // Until the story engine is attached (setStory): no story, nothing to animate.
@@ -188,6 +225,7 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
         state.autoClickNumber++
       }
     } else {
+      state.highestCriticalTier = Math.max(state.highestCriticalTier, outcome.tier)
       if (byPlayer) {
         kind = 'critical-digit'
         state.criticalHits++
@@ -236,17 +274,19 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
   function activateBuff(name, description, value, duration) {
     duration *= Math.pow(1.25, activeStoryBonuses('moretime'))
     if (addBuff(activeBuffs, { name, description, value, duration }, performance.now())) state.extendedBonuses++
-    state.touchedFruits++
   }
 
   function onFruitCaught(fruit, { x, y }) {
     for (let i = 0; i < 20; i++) effects.addParticle(x, y, accentColor)
     const [name, value, duration = FRUIT_BUFF_DURATION] = FRUIT_BUFFS[fruit]
+    // Counted here: the Java version counted every buff as a caught fruit, the black chest curse included.
+    state.touchedFruits++
+    state.caughtFruitKinds.add(fruit)
     // A coconut lifts the black chest curse first, if there is one.
     const curse = activeBuffs.findIndex((entry) => entry.name === 'CURSED')
     if (fruit === 'coconut' && curse >= 0) {
       activeBuffs.splice(curse, 1)
-      state.touchedFruits++
+      state.cursesLifted++
       refreshBuffs()
       updateButtons()
     } else {
@@ -412,7 +452,7 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
   function checkAchievements() {
     for (const achievement of achievements) {
       if (state.unlockedAchievementIds.has(achievement.id)) continue
-      if (!ACHIEVEMENT_CONDITIONS[achievement.id]?.(state)) continue
+      if (!ACHIEVEMENT_CONDITIONS[achievement.id]?.(state, { storyBonuses })) continue
       state.unlockedAchievementIds.add(achievement.id)
       showToast(stage, { title: achievement.name, description: achievement.description, image: achievement.image })
       hud.menuButtons.achievements.show()
