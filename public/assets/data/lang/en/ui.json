@@ -37,7 +37,13 @@
     "fullFocus": "No Miss",
     "discount": "Discount",
     "fruitFactor": "Fruits x",
-    "quizzChance": "Quizzes ++"
+    "quizzChance": "Quizzes ++",
+    "storyBonusBoost": "Story Bonuses x",
+    "criticalBonus": "Crit Points",
+    "eventReward": "Event Rewards x",
+    "combo": "Combo up to x",
+    "magnet": "Fruit Magnet",
+    "seeds": "Seeds"
   },
   "labels": {
     "score": "Score: ",

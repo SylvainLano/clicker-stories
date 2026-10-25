@@ -20,7 +20,8 @@ export const STARTING_VALUES = {
   autoClickingLevel: 0,
   autoFireLevel: 0,
 }
-const FIRST_PRICES = {
+// Exported for the simulator, which can try other prices (--price).
+export const FIRST_PRICES = {
   power: 100,
   focus: 10000,
   critical: 750,
@@ -30,7 +31,7 @@ const FIRST_PRICES = {
   fruitFactor: 15000,
   storyBonus: 100000,
   autoClickingLevel: 200,
-  autoFireLevel: 1000,
+  autoFireLevel: 100000,
 }
 // Each purchase of an upgrade costs this many times the previous one: progress slows down to a wall
 // after about 2 hours, which pushes the player to prestige (checked with scripts/simulate.mjs).

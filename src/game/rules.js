@@ -4,9 +4,9 @@ import { idiv } from './formulas.js'
 
 const MAX_CRITICAL_TIERS = 12
 
-// Critical points: the critical upgrade, plus half the focus, times the critical buffs.
+// Critical points: the critical upgrade, plus half the focus, times the critical buffs, plus bonus points.
 export function criticalPoints(state, multipliers) {
-  return Math.trunc((state.critical + idiv(state.focus, 2)) * multipliers.criticalChance)
+  return Math.trunc((state.critical + idiv(state.focus, 2)) * multipliers.criticalChance + (multipliers.criticalBonus ?? 0))
 }
 
 // Chance (%) of each critical tier: single, double, triple... Up to 50 points, they all go to single criticals.
@@ -38,6 +38,7 @@ export function clickStats(state, multipliers, source) {
     criticalPower: Math.trunc(state.criticalPower * multipliers.criticalPower),
     standardHit: Math.trunc((105 - state.power * (state.errorNumber + 1) + state.focus * 2) * (multipliers.standardHit / 100)),
     fruitFactor: Math.trunc(state.fruitFactor * multipliers.fruitFactor),
+    missShare: multipliers.missShare ?? 0,
   }
   // Auto-clicks miss less and hit harder with more auto-click levels.
   if (source === 'auto' && stats.standardHit < 100) {
@@ -64,8 +65,14 @@ export function clickOutcome(stats, hitRoll, criticalRoll, criticalAllowed = tru
 // Score increase, and money and experience before their multipliers. Each critical tier applies the critical
 // multiplier once more to the score; money and experience only take it once, whatever the tier (applying tiers
 // to them made the game run away: money buys critical points, which bring more tiers, which bring more money).
+// A miss brings nothing, unless seeds (watermelon) give it a share of a hit (its increase is then added to the score;
+// otherwise it is only shown, as in the Java version).
 export function clickGains(state, stats, { kind, tier }) {
-  if (kind === 'miss') return { increase: stats.bonusIncrease, coins: 0, experience: 0 }
+  if (kind === 'miss') {
+    if (stats.missShare === 0) return { increase: stats.bonusIncrease, coins: 0, experience: 0 }
+    const share = stats.missShare
+    return { increase: Math.trunc(share * state.level * state.power), coins: share * stats.coinGain, experience: share * stats.experienceGain }
+  }
   if (kind === 'hit') {
     return { increase: stats.bonusIncrease + state.level * state.power, coins: stats.coinGain, experience: stats.experienceGain }
   }

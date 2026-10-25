@@ -11,6 +11,7 @@ import {
   upgradeCosts,
   upgradeSteps,
 } from './formulas.js'
+import { addBuff, buffDiscount, buffMultipliers, expireBuffs, buffValue, comboFactor, FRUIT_BUFF_DURATION, FRUIT_BUFFS, fruitChance, LIMITS, pickFruit, SEEDS_EXTRA_TIME } from './buffs.js'
 import { clickGains, clickOutcome, clickStats, criticalPoints, criticalTiers } from './rules.js'
 import { saveState } from './state.js'
 
@@ -20,26 +21,6 @@ const SOUNDS = {
   fruit: '/sound/effects/Confirm.wav',
   firework: '/sound/effects/Firework Explosion.mp3',
 }
-
-// In the order of their odds: with N fruit levels, only the first N (at most 10) can appear.
-const FRUITS = ['apple', 'orange', 'banana', 'lemon', 'strawberry', 'cherry', 'peach', 'grape', 'pear', 'blueberry']
-// Fruit -> temporary buff it grants for a minute: [buff, multiplier].
-const FRUIT_BUFFS = {
-  apple: ['expGain', 2],
-  orange: ['moneyGain', 2],
-  banana: ['criticalBoth', 1.5],
-  lemon: ['storyChance', 1.5],
-  strawberry: ['progressCircle', 2],
-  cherry: ['eventChance', 1.5],
-  peach: ['fullFocus', 2],
-  grape: ['discount', 20],
-  pear: ['fruitFactor', 1.2],
-  blueberry: ['quizzChance', 1.2],
-}
-const FRUIT_BUFF_DURATION = 60
-// Buffs extended past this many seconds level up: stronger, but their timer is cut back.
-const BUFF_LEVEL_UP_THRESHOLD = 300
-const BUFF_LEVEL_UP_CUT = 240
 
 const REFRESH_INTERVAL = 0.5 // seconds between two refreshes of buttons, buffs and achievements
 const MAX_TEXT_CLICKS = 8 // clicks per second that advance the story text, at most (auto-fire goes far beyond)
@@ -69,6 +50,7 @@ const NO_STORY = {
   beforeHit: (roll) => roll,
   afterHit() {},
   allowsCritical: () => true,
+  extendTimedChallenge() {},
   update() {},
 }
 
@@ -86,11 +68,17 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
   let textClickTimes = []
   let spaceHeld = false
   let fireClock = 0
+  let lastFruitTime = -Infinity
+  let hitsInARow = 0
   let gunshots = []
 
   // ---------- Helpers ----------
 
-  const activeStoryBonuses = (bonus) => storyBonuses.filter((entry) => entry.bonus === bonus && entry.activated).length
+  // Active story bonuses of a kind; they count twice (or more, once leveled up) while a pineapple is active.
+  const activeStoryBonuses = (bonus) =>
+    Math.trunc(
+      storyBonuses.filter((entry) => entry.bonus === bonus && entry.activated).length * (buffValue(activeBuffs, 'storyBonusBoost') ?? 1),
+    )
   const buff = (name) => activeBuffs.find((entry) => entry.name === name)
 
   function buttonCenter() {
@@ -181,7 +169,10 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
     const stats = clickStats(state, multipliers, source)
     const hitRoll = story.beforeHit(Math.random() * 100, source)
     const outcome = clickOutcome(stats, hitRoll, Math.random() * 100, story.allowsCritical())
-    const { increase, coins, experience } = clickGains(state, stats, outcome)
+    const gains = clickGains(state, stats, outcome)
+    // Kiwi: hits in a row raise the score of the next ones.
+    hitsInARow = outcome.kind === 'miss' ? 0 : hitsInARow + 1
+    const increase = outcome.kind === 'miss' ? gains.increase : Math.trunc(gains.increase * comboFactor(activeBuffs, hitsInARow))
     const byPlayer = source !== 'auto'
     let kind
 
@@ -213,10 +204,11 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
         state.autoCriticalHits++
       }
     }
-    if (outcome.kind !== 'miss') {
+    // Misses only bring something with seeds (watermelon).
+    if (outcome.kind !== 'miss' || stats.missShare > 0) {
       state.score += increase
-      addMoney(coins)
-      addExperience(experience)
+      addMoney(gains.coins)
+      addExperience(gains.experience)
     }
 
     updateLabels()
@@ -226,8 +218,10 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
     // Second roll: something may pop out of a hit.
     const bonusRoll = Math.random() * 100
     const handled = kind === 'critical-digit' && hooks.emit('criticalHit', { roll: bonusRoll, x, y, state, effects })
-    if (!handled && stats.fruitFactor > bonusRoll * 10) {
-      effects.addFruit(x, y, FRUITS[Math.floor(Math.random() * Math.min(stats.fruitFactor, FRUITS.length))])
+    const fruitReady = performance.now() - lastFruitTime >= LIMITS.fruitCooldown * 1000
+    if (!handled && fruitReady && bonusRoll < fruitChance(stats.fruitFactor) * 100) {
+      lastFruitTime = performance.now()
+      effects.addFruit(x, y, pickFruit(stats.fruitFactor, Math.random()))
       state.appearedFruits++
     }
   }
@@ -241,71 +235,45 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
 
   function activateBuff(name, description, value, duration) {
     duration *= Math.pow(1.25, activeStoryBonuses('moretime'))
-    const existing = buff(name)
-    if (existing) {
-      countDown(existing)
-      existing.duration += duration
-      if (existing.duration > BUFF_LEVEL_UP_THRESHOLD) {
-        existing.duration -= BUFF_LEVEL_UP_CUT
-        existing.value *= 1.2
-        existing.level++
-        state.extendedBonuses++
-      }
-    } else {
-      activeBuffs.push({ name, description, value, duration, level: 1, countedAt: performance.now() })
-    }
+    if (addBuff(activeBuffs, { name, description, value, duration }, performance.now())) state.extendedBonuses++
     state.touchedFruits++
-  }
-
-  // Buffs count down in real time, from the moment they were obtained.
-  function countDown(entry) {
-    const now = performance.now()
-    entry.duration -= (now - entry.countedAt) / 1000
-    entry.countedAt = now
   }
 
   function onFruitCaught(fruit, { x, y }) {
     for (let i = 0; i < 20; i++) effects.addParticle(x, y, accentColor)
-    const [name, value] = FRUIT_BUFFS[fruit]
-    activateBuff(name, t('buffs', name), value, FRUIT_BUFF_DURATION)
+    const [name, value, duration = FRUIT_BUFF_DURATION] = FRUIT_BUFFS[fruit]
+    // A coconut lifts the black chest curse first, if there is one.
+    const curse = activeBuffs.findIndex((entry) => entry.name === 'CURSED')
+    if (fruit === 'coconut' && curse >= 0) {
+      activeBuffs.splice(curse, 1)
+      state.touchedFruits++
+      refreshBuffs()
+      updateButtons()
+    } else {
+      activateBuff(name, t('buffs', name), value, duration)
+      if (fruit === 'watermelon') story.extendTimedChallenge(SEEDS_EXTRA_TIME)
+    }
     sounds.play(SOUNDS.fruit, 0.5)
   }
 
   function buffText({ name, description, value, duration }) {
     const seconds = Math.round(duration)
-    if (['expGain', 'moneyGain', 'criticalBoth', 'fruitFactor'].includes(name)) return `${description}${value.toFixed(1)} : ${seconds}`
+    if (['expGain', 'moneyGain', 'criticalBoth', 'fruitFactor', 'storyBonusBoost', 'eventReward', 'combo'].includes(name)) {
+      return `${description}${value.toFixed(1)} : ${seconds}`
+    }
     if (name === 'discount') return `${description} ${value.toFixed(1)}% : ${seconds}`
+    if (name === 'criticalBonus') return `${description} +${Math.round(value)} : ${seconds}`
+    if (name === 'seeds') return `${description} ${Math.round(Math.min(value, 1) * 100)}% : ${seconds}`
     return `${description} : ${seconds}`
   }
 
   // Recomputes the multipliers and counts the buffs down.
   function refreshBuffs() {
-    const penalty = 1 / (state.errorNumber + 1)
-    Object.assign(multipliers, {
-      xp: penalty * Math.pow(2, activeStoryBonuses('xpboost')),
-      money: penalty,
-      criticalChance: penalty,
-      criticalPower: penalty,
-      standardHit: 100,
-      fruitFactor: penalty,
-    })
+    expireBuffs(activeBuffs, performance.now())
+    Object.assign(multipliers, buffMultipliers(state, activeBuffs, activeStoryBonuses))
 
     hud.buffs.replaceChildren()
-    for (let i = activeBuffs.length - 1; i >= 0; i--) {
-      const entry = activeBuffs[i]
-      countDown(entry)
-      if (entry.duration < 0) activeBuffs.splice(i, 1)
-    }
     for (const entry of activeBuffs) {
-      if (entry.name === 'expGain') multipliers.xp *= entry.value
-      else if (entry.name === 'moneyGain') multipliers.money *= entry.value
-      else if (entry.name === 'criticalBoth') {
-        multipliers.criticalChance *= entry.value
-        multipliers.criticalPower *= entry.value
-      } else if (entry.name === 'CURSED') multipliers.standardHit -= state.power + state.errorNumber + 20
-      else if (entry.name === 'fullFocus') multipliers.standardHit = 500 / (state.errorNumber + 1)
-      else if (entry.name === 'fruitFactor') multipliers.fruitFactor *= entry.value
-
       const line = document.createElement('div')
       line.textContent = buffText(entry)
       // Buffs extended past their first level take the color of the previous level.
@@ -314,15 +282,7 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
     }
   }
 
-  // 1 = full price. Grapes and story bonuses lower prices, a curse raises them.
-  function discount() {
-    let percent = 100 - 10 * activeStoryBonuses('discount10')
-    for (const entry of activeBuffs) {
-      if (entry.name === 'discount') percent -= entry.value
-      else if (entry.name === 'CURSED') percent += entry.value * 10
-    }
-    return percent / 100
-  }
+  const discount = () => buffDiscount(activeBuffs, activeStoryBonuses)
 
   // ---------- Upgrades ----------
 
@@ -546,6 +506,8 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
       return activeBuffs
     },
     activeStoryBonuses,
+    hasBuff: (name) => Boolean(buff(name)),
+    buffValue: (name) => buffValue(activeBuffs, name),
     buy,
     activateBuff,
     onFruitCaught,

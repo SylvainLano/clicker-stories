@@ -1,4 +1,5 @@
 import { listAssets, pickRandom, resolveUrl } from '../assets.js'
+import { FRUITS, SEEDS_EXTRA_TIME } from '../game/buffs.js'
 import { experienceForLevel, formatNumber, idiv } from '../game/formulas.js'
 import { element } from '../ui/dom.js'
 import { showToast } from '../ui/toast.js'
@@ -18,7 +19,6 @@ const SOUNDS = {
   goldenChest: '/sound/effects/golden_chest.mp3',
   fruitChest: '/sound/effects/fruit_chest.mp3',
 }
-const CHEST_FRUITS = ['apple', 'orange', 'banana', 'lemon', 'strawberry', 'cherry', 'peach', 'grape', 'pear', 'blueberry']
 
 const randomInt = (bound) => Math.floor(Math.random() * bound)
 const random = (min, max) => min + Math.random() * (max - min)
@@ -189,7 +189,7 @@ export function createStoryEngine({ game, content, hooks, t, backdrop }) {
       startTimedChallenge(block)
     } else if (type === CONTENT.STATIC) {
       if (block.trigger === 'money') {
-        event.reward = Math.trunc(state.level * state.criticalPower * state.moneyGain * random(0.5, 1.5) * 20)
+        event.reward = eventReward(Math.trunc(state.level * state.criticalPower * state.moneyGain * random(0.5, 1.5) * 20))
         block.text = block.text.replace('{reward}', formatNumber(event.reward * 5))
       }
       unlocked = 200
@@ -202,6 +202,9 @@ export function createStoryEngine({ game, content, hooks, t, backdrop }) {
   }
 
   // ---------- Timed challenges ----------
+
+  // Limes multiply the rewards of the events started while they are active.
+  const eventReward = (reward) => Math.trunc(reward * (game.buffValue('eventReward') ?? 1))
 
   function startTimedChallenge(block) {
     const { level, power, focus, critical, criticalPower } = state
@@ -229,8 +232,10 @@ export function createStoryEngine({ game, content, hooks, t, backdrop }) {
         block.number = harder(block.number)
         break
     }
+    event.reward = eventReward(event.reward)
     let duration = block.delay - randomInt(Math.trunc(Math.log(power) + level))
     for (let i = 0; i < game.activeStoryBonuses('moretime'); i++) duration = Math.trunc(duration * 1.25)
+    if (game.hasBuff('seeds')) duration += SEEDS_EXTRA_TIME
     block.delay = duration
     block.text = block.text.replace('{reward}', formatNumber(event.reward)).replace('{number}', block.number)
     unlocked = 200
@@ -433,7 +438,7 @@ export function createStoryEngine({ game, content, hooks, t, backdrop }) {
       // Some fruits burst out of the chest. (The Java version looped forever when the threshold was 0.)
       const threshold = Math.trunc(Math.random() * 100)
       while (fruitFactor > 0 && fruitFactor + 1 > threshold) {
-        game.effects.addFruit(position.x, position.y, pickRandom(CHEST_FRUITS))
+        game.effects.addFruit(position.x, position.y, pickRandom(FRUITS))
         state.appearedFruits++
         fruitFactor = Math.trunc(fruitFactor / 2)
       }
@@ -762,6 +767,11 @@ export function createStoryEngine({ game, content, hooks, t, backdrop }) {
       if (challenge === 'miss' && kind === 'miss') event.counter++
       if (challenge === 'critical' && (kind === 'critical-digit' || kind === 'autocritical-digit')) event.counter++
       if (challenge === 'redgreen' && increase !== 0) event.counter += event.alternator ? increase : -increase
+    },
+
+    // Watermelons give the timed challenge in progress more time.
+    extendTimedChallenge(seconds) {
+      if (type === CONTENT.TIMED && !event.ending) current().delay += seconds
     },
 
     allowsCritical: () => !hooks.emit('blocksCritical', { file, type, index }),

@@ -41,7 +41,8 @@ function varyColor(hex) {
 }
 
 // All moving effects live in `layer` (stage coordinates, origin at the top left) and are updated by update(dt).
-export function createEffects(layer, { onFruitCaught }) {
+// catchesByItself(): true while fruits are caught without the mouse (coconut magnet).
+export function createEffects(layer, { onFruitCaught, catchesByItself = () => false }) {
   const digits = []
   const particles = []
   const fruits = []
@@ -119,6 +120,7 @@ export function createEffects(layer, { onFruitCaught }) {
         item.node.style.transform = `translate(${x}px, ${y}px)`
         item.node.style.opacity = 1 - progress
       })
+      if (catchesByItself()) for (const item of fruits) if (item.time > FRUIT_CATCH_DELAY) item.caught = true
       updateList(fruits, dt, (item, x, y) => {
         item.node.style.transform = `translate(${x - FRUIT_SIZE / 2}px, ${y - FRUIT_SIZE / 2}px) rotate(${item.time * item.rotationSpeed}deg)`
       })

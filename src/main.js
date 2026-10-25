@@ -99,7 +99,10 @@ async function startGame() {
       menuMusic.refreshVolume()
     },
   })
-  const effects = createEffects(hud.effects, { onFruitCaught: (...args) => game.onFruitCaught(...args) })
+  const effects = createEffects(hud.effects, {
+    onFruitCaught: (...args) => game.onFruitCaught(...args),
+    catchesByItself: () => game.hasBuff('magnet'),
+  })
   game = createGame({ stage, state, hud, effects, sounds, music, hooks, t, colors, achievements, storyBonuses })
   const story = createStoryEngine({ game, content, hooks, t, backdrop })
   game.setStory(story)

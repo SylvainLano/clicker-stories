@@ -35,7 +35,13 @@
     "fullFocus": "Pas de Ratés",
     "discount": "Remise",
     "fruitFactor": "Fruits x",
-    "quizzChance": "Quiz ++"
+    "quizzChance": "Quiz ++",
+    "storyBonusBoost": "Bonus d'histoire x",
+    "criticalBonus": "Points crit.",
+    "eventReward": "Récompenses x",
+    "combo": "Combo jusqu'à x",
+    "magnet": "Aimant à fruits",
+    "seeds": "Pépins"
   },
   "labels": {
     "score": "Score : ",
