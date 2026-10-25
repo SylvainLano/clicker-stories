@@ -5,11 +5,12 @@ import {
   autoClickingDelay,
   experienceForLevel,
   formatNumber,
-  idiv,
   levelForExperience,
+  STARTING_VALUES,
   upgradeCosts,
   upgradeSteps,
 } from './formulas.js'
+import { clickGains, clickOutcome, clickStats, criticalPoints, criticalTiers } from './rules.js'
 import { saveState } from './state.js'
 
 const SOUNDS = {
@@ -148,30 +149,17 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
 
   // source: 'manual' (mouse or space bar) or 'auto' (auto-click); (x, y): where the numbers fly from.
   function hit(source, x, y) {
-    let increase = 0
-    let experienceGain = state.power * state.experienceGain
-    let coinGain = state.level * state.moneyGain
-    const criticalChance = Math.trunc((state.critical + idiv(state.focus, 2)) * multipliers.criticalChance)
-    const criticalPower = Math.trunc(state.criticalPower * multipliers.criticalPower)
-    let standardHit = Math.trunc((105 - state.power * (state.errorNumber + 1) + state.focus * 2) * (multipliers.standardHit / 100))
-    const fruitFactor = Math.trunc(state.fruitFactor * multipliers.fruitFactor)
-
-    // Auto-clicks miss less and hit harder with more auto-click levels.
-    if (source === 'auto' && standardHit < 100) {
-      standardHit = 100 - idiv(100 - standardHit, state.focus)
-      increase += state.autoClickingLevel * state.level * state.power
-      coinGain *= state.autoClickingLevel
-      experienceGain *= state.autoClickingLevel
-    }
-
-    const roll = story.beforeHit(Math.random() * 100, source)
+    const stats = clickStats(state, multipliers, source)
+    const hitRoll = story.beforeHit(Math.random() * 100, source)
+    const outcome = clickOutcome(stats, hitRoll, Math.random() * 100, story.allowsCritical())
+    const { increase, coins, experience } = clickGains(state, stats, outcome)
     const recentClicks = countRecentClicks()
     let kind
 
-    if (roll > standardHit) {
+    if (outcome.kind === 'miss') {
       kind = 'miss'
       sounds.play(SOUNDS.miss, 0.5)
-    } else if (roll > criticalChance || !story.allowsCritical()) {
+    } else if (outcome.kind === 'hit') {
       if (source === 'manual') {
         kind = 'score-digit'
         state.clickNumber++
@@ -182,10 +170,6 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
         kind = 'artificial-digit'
         state.autoClickNumber++
       }
-      increase += state.level * state.power
-      state.score += increase
-      addMoney(coinGain)
-      addExperience(experienceGain)
     } else {
       if (source === 'manual') {
         kind = 'critical-digit'
@@ -205,10 +189,11 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
         state.autoClickNumber++
         state.autoCriticalHits++
       }
-      increase = state.level * state.power * criticalPower
+    }
+    if (outcome.kind !== 'miss') {
       state.score += increase
-      addMoney(coinGain * criticalPower)
-      addExperience(experienceGain * criticalPower)
+      addMoney(coins)
+      addExperience(experience)
     }
 
     updateLabels()
@@ -218,8 +203,8 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
     // Second roll: something may pop out of a hit.
     const bonusRoll = Math.random() * 100
     const handled = kind === 'critical-digit' && hooks.emit('criticalHit', { roll: bonusRoll, x, y, state, effects })
-    if (!handled && fruitFactor > bonusRoll * 10) {
-      effects.addFruit(x, y, FRUITS[Math.floor(Math.random() * Math.min(fruitFactor, FRUITS.length))])
+    if (!handled && stats.fruitFactor > bonusRoll * 10) {
+      effects.addFruit(x, y, FRUITS[Math.floor(Math.random() * Math.min(stats.fruitFactor, FRUITS.length))])
       state.appearedFruits++
     }
   }
@@ -318,29 +303,27 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
 
   // ---------- Upgrades ----------
 
-  // Button key -> [state field, cost key, unlock text key].
+  // Button key -> state field.
   const UPGRADES = {
-    power: ['power', 'power'],
-    focus: ['focus', 'focus'],
-    critical: ['critical', 'critical', 'unlockCritical'],
-    criticalPower: ['criticalPower', 'criticalPower'],
-    moneyGain: ['moneyGain', 'moneyGain'],
-    experienceGain: ['experienceGain', 'experienceGain'],
-    fruit: ['fruitFactor', 'fruitFactor', 'unlockFruit'],
-    storyBonus: ['storyBonus', 'storyBonus', 'unlockStoryBonus'],
-    autoClick: ['autoClickingLevel', 'autoClicking', 'unlockAutoclick'],
+    power: 'power',
+    focus: 'focus',
+    critical: 'critical',
+    criticalPower: 'criticalPower',
+    moneyGain: 'moneyGain',
+    experienceGain: 'experienceGain',
+    fruit: 'fruitFactor',
+    storyBonus: 'storyBonus',
+    autoClick: 'autoClickingLevel',
   }
 
-  // Which upgrades show even when you can't afford them: those already bought at least once.
-  const STARTING_VALUES = { power: 1, focus: 1, critical: 0, criticalPower: 2, moneyGain: 1, experienceGain: 1, fruitFactor: 0, storyBonus: 0, autoClickingLevel: 0 }
-
   function buy(key) {
-    const [field, costKey] = UPGRADES[key]
-    const cost = costs[costKey]
+    const field = UPGRADES[key]
+    const cost = costs[field]
     if (state.money < cost) return
     state.money -= cost
     state.moneySpent += cost
     state[field] += upgradeSteps[field](state[field])
+    state.upgradesBought[field]++
     updateLabels()
     updateButtons()
     if (key === 'autoClick') restartAutoClick()
@@ -349,15 +332,21 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
   }
 
   function upgradeTexts(key) {
-    const cost = t('buttons', 'cost') + formatNumber(costs[UPGRADES[key][1]])
-    const value = state[UPGRADES[key][0]]
+    const cost = t('buttons', 'cost') + formatNumber(costs[UPGRADES[key]])
+    const value = state[UPGRADES[key]]
     switch (key) {
       case 'power':
         return [`${t('caracteristics', 'power')} ${value}`, cost]
       case 'focus':
         return [`${t('caracteristics', 'focus')} ${value}`, cost]
       case 'critical':
-        return [value === 0 ? t('buttons', 'unlockCritical') : `${t('caracteristics', 'critical')} ${value} %`, cost]
+        // Single critical chance, then double, triple... once past 50%.
+        return [
+          value === 0
+            ? t('buttons', 'unlockCritical')
+            : `${t('caracteristics', 'critical')} ${criticalTiers(criticalPoints(state, multipliers)).map(Math.round).join('/')} %`,
+          cost,
+        ]
       case 'criticalPower':
         return [`${t('caracteristics', 'critical')} x ${value}`, cost]
       case 'moneyGain':
@@ -375,15 +364,15 @@ export function createGame({ stage, state, hud, effects, sounds, music, hooks, t
 
   function updateButtons() {
     costs = upgradeCosts(state, discount())
-    for (const key of Object.keys(UPGRADES)) {
-      const [field, costKey] = UPGRADES[key]
+    for (const [key, field] of Object.entries(UPGRADES)) {
       const button = hud.upgrades[key]
       // Story bonuses can only be bought once a story's quizzes are all answered.
-      const affordable = state.money >= costs[costKey] && (key !== 'storyBonus' || state.finishedQuizzIds.size > state.storyBonus)
+      const affordable = state.money >= costs[field] && (key !== 'storyBonus' || state.finishedQuizzIds.size > state.storyBonus)
       if (affordable) {
         button.show()
         button.setDisabled(false)
       } else if (state[field] > STARTING_VALUES[field]) {
+        // Already bought at least once: shown even when not affordable.
         button.show()
         button.setDisabled(true)
       } else {

@@ -1,3 +1,5 @@
+import { STARTING_VALUES, upgradeSteps } from './formulas.js'
+
 // Everything the game saves. Field names match the Java save, because story texts use them as
 // placeholders (e.g. "{clickNumber}" in the statistics blocks).
 const SAVE_KEY = 'clicker-stories.save'
@@ -31,6 +33,8 @@ export function createState() {
     storyBonus: 0,
     autoClickingLevel: 0,
     errorNumber: 0,
+    // Purchases of each upgrade (by state field), which set its next price.
+    upgradesBought: Object.fromEntries(Object.keys(STARTING_VALUES).map((field) => [field, 0])),
     // Statistics
     clickNumber: 0,
     autoClickNumber: 0,
@@ -85,5 +89,18 @@ export function loadState() {
     if (!(key in data)) continue
     state[key] = SET_FIELDS.includes(key) ? new Set(data[key]) : data[key]
   }
+  if (!('upgradesBought' in data)) state.upgradesBought = estimatePurchases(state)
   return state
+}
+
+// Saves from before purchases were counted (version 0.1.0): replays the upgrade steps from the starting values
+// up to the saved ones. Rewards that raised a value without a purchase count as purchases, which is close enough.
+function estimatePurchases(state) {
+  return Object.fromEntries(
+    Object.entries(STARTING_VALUES).map(([field, start]) => {
+      let purchases = 0
+      for (let value = start; value < state[field]; value += upgradeSteps[field](value)) purchases++
+      return [field, purchases]
+    }),
+  )
 }
